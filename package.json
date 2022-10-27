@@ -53,5 +53,9 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
+  },
+  "dependencies": {
+    "joi": "^17.6.4",
+    "md5": "^2.3.0"
   }
 }
