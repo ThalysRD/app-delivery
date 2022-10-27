@@ -4,10 +4,9 @@ import LoginCard from '../components/LoginCard';
 export default class Login extends Component {
   render() {
     return (
-      <div>
+      <section>
         <LoginCard />
-        Login
-      </div>
+      </section>
     );
   }
 }

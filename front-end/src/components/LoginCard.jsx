@@ -7,17 +7,28 @@ export default class LoginCard extends Component {
     console.log('constructor');
   }
 
-  componentDidMount() {
-    const { history } = this.props;
-
-    history.push('/login');
-  }
-
   render() {
     return (
-      <div>
-        LoginCard
-      </div>
+      <section>
+        <div>
+          <label htmlFor="input-email">
+            Email
+            <input
+              id="input-email"
+              type="email"
+              data-testid="common_login__input-email"
+            />
+          </label>
+          <label htmlFor="input-password">
+            Password
+            <input
+              id="input-password"
+              type="password"
+              data-testid="common_login__input-password"
+            />
+          </label>
+        </div>
+      </section>
     );
   }
 }
