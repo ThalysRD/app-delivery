@@ -28,9 +28,6 @@ export default class LoginCard extends Component {
     const minPassword = 6;
     const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    console.log(regex.test(String(email).toLowerCase()));
-    console.log(password.length >= minPassword);
-
     return !(regex.test(String(email).toLowerCase()) && password.length >= minPassword);
   };
 
