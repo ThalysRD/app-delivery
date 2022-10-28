@@ -1,20 +1,7 @@
 require('dotenv').config();
-const Joi = require('joi');
+const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
-
-const validateUser = async (newUser) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-  });
-
-  const { error } = schema.validate(newUser);
-  if (error) {
-    return { message: error.message };
-  }
-  return 'ok';
-};
 
 const checkEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -22,14 +9,14 @@ const checkEmail = async (email) => {
 };
 
 const createUser = async (newUser) => {
-  await User.create(newUser);
+  const { email, password, name, role } = newUser;
+  await User.create({ name, email, password: md5(password), role });
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
 
   const token = jwt.sign({ data: newUser.email }, process.env.JWT_SECRET, jwtConfig);
-  console.log(token);
   return token;
 };
 
@@ -55,7 +42,7 @@ const getByUserId = async (id) => {
     id: user.id,
     displayName: user.displayName,
     email: user.email,
-    image: user.image, 
+    image: user.image,
   };
   return result;
 };
@@ -69,4 +56,4 @@ const deleteMe = async (email) => {
   return undefined;
 };
  
-module.exports = { validateUser, checkEmail, createUser, getAllUsers, getByUserId, deleteMe };
+module.exports = { checkEmail, createUser, getAllUsers, getByUserId, deleteMe };
