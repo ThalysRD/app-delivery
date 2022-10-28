@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class LoginCard extends Component {
   constructor(props) {
     super(props);
-    console.log('constructor');
+
     this.state = {
       email: '',
       password: '',
