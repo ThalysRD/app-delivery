@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { requestLogin, setToken } from '../services/requests';
 
 export default class LoginCard extends Component {
   constructor(props) {
@@ -7,8 +9,26 @@ export default class LoginCard extends Component {
     this.state = {
       email: '',
       password: '',
+      isLogged: false,
+      failedLogin: false,
     };
   }
+
+  login = async (e) => {
+    e.preventDefault();
+    try {
+      const { token } = await requestLogin({ email, password });
+      setToken(token);
+
+      this.setState({
+        isLogged: true,
+      });
+    } catch (error) {
+      this.setState({
+        failedLogin: true,
+      });
+    }
+  };
 
   checkPassword = ({ target }) => {
     this.setState({
@@ -32,7 +52,11 @@ export default class LoginCard extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { history } = this.props;
+    const { email, password, isLogged, failedLogin } = this.state;
+    if (isLogged) {
+      history.push('/products');
+    }
     return (
       <section>
         <form>
@@ -61,11 +85,24 @@ export default class LoginCard extends Component {
               />
             </label>
           </div>
+          {
+            (failedLogin)
+              ? (
+                <p data-testid="common_login__element-invalid-email">
+                  {
+                    `O endereço de e-mail ou a senha inválidos.
+                    Por favor, instira os dados novamente.`
+                  }
+                </p>
+              )
+              : null
+          }
           <div>
             <button
               data-testid="common_login__button-login"
               type="button"
               disabled={ this.checkLogin() }
+              onClick={ (event) => this.login(event) }
             >
               Login
             </button>
@@ -81,3 +118,13 @@ export default class LoginCard extends Component {
     );
   }
 }
+
+LoginCard.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+};
+
+LoginCard.defaultProps = {
+  history: PropTypes.push,
+};
