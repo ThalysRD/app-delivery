@@ -1,4 +1,5 @@
 require('dotenv').config();
+const md5 = require('md5');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
@@ -22,14 +23,14 @@ const checkEmail = async (email) => {
 };
 
 const createUser = async (newUser) => {
-  await User.create(newUser);
+  const { email, password } = newUser;
+  await User.create({ email, password: md5(password) });
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
 
   const token = jwt.sign({ data: newUser.email }, process.env.JWT_SECRET, jwtConfig);
-  console.log(token);
   return token;
 };
 
@@ -55,7 +56,7 @@ const getByUserId = async (id) => {
     id: user.id,
     displayName: user.displayName,
     email: user.email,
-    image: user.image, 
+    image: user.image,
   };
   return result;
 };
