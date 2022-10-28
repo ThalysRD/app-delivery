@@ -14,7 +14,7 @@ const userLogin = async (email, password) => {
   };
 
   const token = jwt.sign({ data: email }, process.env.JWT_SECRET, jwtConfig);
-  return token;
+  return { token, role: user.role };
 };
 
 module.exports = { userLogin };
