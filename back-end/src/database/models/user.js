@@ -1,5 +1,5 @@
-const createUser = (sequelize, DataTypes) => {
-    const User = sequelize.define('users', {
+const User = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -20,4 +20,4 @@ const createUser = (sequelize, DataTypes) => {
   
   }
   
-  module.exports = createUser
+  module.exports = User

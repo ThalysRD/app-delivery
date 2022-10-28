@@ -1,16 +1,16 @@
-const createProducts = (sequelize, DataTypes) => {
-    const Product = sequelize.define('products', {
+const Product = (sequelize, DataTypes) => {
+    const Product = sequelize.define('Products', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement:true,
         allowNull: false,
       } ,
-      name:: DataTypes.STRING,
+      name: DataTypes.STRING,
       price: DataTypes.FLOAT,
       url_image: DataTypes.STRING,
     }, {
-      tableName: 'products',
+      tableName: 'Products',
       timestamps: false,
     });
 
@@ -19,4 +19,4 @@ const createProducts = (sequelize, DataTypes) => {
   
   }
   
-  module.exports = createProducts
+  module.exports = Product
