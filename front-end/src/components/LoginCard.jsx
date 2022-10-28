@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { requestLogin, setToken } from '../services/requests';
 
 export default class LoginCard extends Component {
@@ -17,13 +18,18 @@ export default class LoginCard extends Component {
   login = async (e) => {
     e.preventDefault();
     try {
-      const { token } = await requestLogin({ email, password });
+      const { email, password } = this.state;
+      const { token, role } = await requestLogin({ email, password });
       setToken(token);
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
 
       this.setState({
         isLogged: true,
       });
     } catch (error) {
+      console.error(error);
       this.setState({
         failedLogin: true,
       });
@@ -52,10 +58,10 @@ export default class LoginCard extends Component {
   };
 
   render() {
-    const { history } = this.props;
     const { email, password, isLogged, failedLogin } = this.state;
     if (isLogged) {
-      history.push('/products');
+      const { history } = this.props;
+      history.push('/customer/products');
     }
     return (
       <section>
@@ -91,7 +97,7 @@ export default class LoginCard extends Component {
                 <p data-testid="common_login__element-invalid-email">
                   {
                     `O endereço de e-mail ou a senha inválidos.
-                    Por favor, instira os dados novamente.`
+                    Por favor, insira os dados novamente.`
                   }
                 </p>
               )
