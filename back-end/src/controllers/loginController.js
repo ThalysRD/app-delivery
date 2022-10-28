@@ -10,7 +10,7 @@ const userLogin = async (req, res) => {
   if (!token) {
     return res.status(404).json({ message: 'Invalid fields' });
   }
-  return res.status(200).json({ token });
+  return res.status(200).json(token);
 };
 
 module.exports = { userLogin };
