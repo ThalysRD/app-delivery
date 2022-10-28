@@ -20,6 +20,8 @@ export default class LoginCard extends Component {
     try {
       const { email, password } = this.state;
       const { token, role } = await requestLogin({ email, password });
+      const { history } = this.props;
+
       setToken(token);
 
       localStorage.setItem('token', token);
@@ -28,6 +30,8 @@ export default class LoginCard extends Component {
       this.setState({
         isLogged: true,
       });
+
+      history.push('/customers/products');
     } catch (error) {
       console.error(error);
       this.setState({
