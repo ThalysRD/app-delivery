@@ -65,6 +65,7 @@ export default class LoginCard extends Component {
     const { email, password, isLogged, failedLogin } = this.state;
     if (isLogged) {
       const { history } = this.props;
+      console.log(this.props);
       history.push('/customer/products');
     }
     return (

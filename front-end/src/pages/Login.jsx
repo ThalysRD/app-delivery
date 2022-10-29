@@ -5,7 +5,6 @@ import LoginCard from '../components/LoginCard';
 export default class Login extends Component {
   render() {
     const { history } = this.props;
-
     return (
       <section>
         <LoginCard history={ history } />
