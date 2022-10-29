@@ -17,12 +17,6 @@ const productsMock = [
   },
 ];
 
-const userMock = {
-  name: 'Fulana Pereira',
-  email: 'fulana@deliveryapp.com',
-  role: 'seller',
-};
-
 export default class CustomerProducts extends Component {
   render() {
     const { history } = this.props;
@@ -30,7 +24,6 @@ export default class CustomerProducts extends Component {
       <div>
         <NavBar
           history={ history }
-          user={ userMock }
         />
         {
           productsMock.map((product, index) => (

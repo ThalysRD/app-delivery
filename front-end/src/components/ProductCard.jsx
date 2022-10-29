@@ -50,18 +50,23 @@ export default class ProductCard extends Component {
     const { quantity } = this.state;
 
     return (
-      <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-        <div>
+      <div>
+        <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
           { product.price }
         </div>
-        <img src={ product.url_image } alt="produto" />
-        <div>
+        <img
+          src={ product.url_image }
+          alt="produto"
+          data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
+        />
+        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
           { product.name }
         </div>
         <div>
           <button
             type="button"
             onClick={ this.subtractQuantity }
+            data-testid={ `customer_products__button-card-rm-item-${index + 1}` }
           >
             -
           </button>
@@ -70,10 +75,12 @@ export default class ProductCard extends Component {
             value={ quantity }
             name="quantity"
             onChange={ this.handleChange }
+            data-testid={ `customer_products__input-card-quantity-${index + 1}` }
           />
           <button
             type="button"
             onClick={ this.addQuantity }
+            data-testid={ `customer_products__button-card-add-item-${index + 1}` }
           >
             +
           </button>
