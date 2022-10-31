@@ -27,7 +27,7 @@ export default class LoginCard extends Component {
       const { name, token, role } = await requestLogin({ email, password });
       setToken(token);
 
-      localStorage.setItem('storage', JSON.stringify({ name, email, role, token }));
+      localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
 
       this.setState({
         isLogged: true,

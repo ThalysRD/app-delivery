@@ -7,12 +7,16 @@ export default class NavBar extends Component {
     console.log('NavBar');
 
     this.state = {
-      username: localStorage.getItem('name'),
+      username: '',
     };
   }
 
   componentDidMount() {
-    const username = localStorage.getItem('name');
+    const username = JSON.parse(localStorage.getItem('user'));
+    console.log(username);
+    this.setState({
+      username: username.name,
+    });
 
     if (!username) {
       this.setState({
@@ -22,6 +26,7 @@ export default class NavBar extends Component {
   }
 
   redirectToLogin = () => {
+    localStorage.removeItem('user');
     const { history } = this.props;
 
     history.push('/login');

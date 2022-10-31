@@ -48,14 +48,13 @@ export default class ProductCard extends Component {
   render() {
     const { product, index } = this.props;
     const { quantity } = this.state;
-
     return (
       <div>
-        <div data-testid={ `customer_products__element-card-title-${index}` }>
+        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
           { product.name }
         </div>
         <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-          { product.price.toFixed(2) }
+          { product.price.replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
