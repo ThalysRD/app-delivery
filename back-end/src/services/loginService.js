@@ -16,7 +16,6 @@ const userLogin = async (email, password) => {
     algorithm: 'HS256',
   };
 
-
   const token = jwt.sign({ data: email }, await fs.readFile(jwtKey, 'utf-8'), jwtConfig);
   return {
     token,
