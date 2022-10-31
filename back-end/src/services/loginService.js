@@ -3,6 +3,7 @@ const fs = require('fs/promises');
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
+
 const jwtKey = 'jwt.evaluation.key';
 
 const userLogin = async (email, password) => {
@@ -15,7 +16,7 @@ const userLogin = async (email, password) => {
     algorithm: 'HS256',
   };
 
-  console.log(`teste ${await fs.readFile(jwtKey, 'utf-8')}`)
+  console.log(`teste ${await fs.readFile(jwtKey, 'utf-8')}`);
 
   const token = jwt.sign({ data: email }, await fs.readFile(jwtKey, 'utf-8'), jwtConfig);
   return {
