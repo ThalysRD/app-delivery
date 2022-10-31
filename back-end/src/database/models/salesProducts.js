@@ -1,15 +1,17 @@
 const SaleProduct = (sequelize, DataTypes) => {
   const SaleProduct = sequelize.define('SaleProduct', {
-    sale_id: {
+    saleId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
+    field: 'sale_id',
     },
 
-    product_id: {
+    productId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
+    field: 'product_id',
     },
   }, {
     tableName: 'salesProducts',
