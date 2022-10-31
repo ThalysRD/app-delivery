@@ -1,7 +1,7 @@
 const express = require('express');
 
 const productController = require('../controllers/productController');
-const { tokenValidation } = require('../middlewares/tokenValidation');
+// const { tokenValidation } = require('../middlewares/tokenValidation');
 
 const productRoute = express.Router();
 
