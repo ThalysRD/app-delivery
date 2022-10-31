@@ -15,6 +15,11 @@ export default class LoginCard extends Component {
     };
   }
 
+  register = () => {
+    const { history } = this.props;
+    history.push('/register');
+  };
+
   login = async (e) => {
     e.preventDefault();
     try {
@@ -66,6 +71,7 @@ export default class LoginCard extends Component {
     const { email, password, isLogged, failedLogin } = this.state;
     if (isLogged) {
       const { history } = this.props;
+      console.log(this.props);
       history.push('/customer/products');
     }
     return (
@@ -120,6 +126,7 @@ export default class LoginCard extends Component {
             <button
               data-testid="common_login__button-register"
               type="button"
+              onClick={ () => this.register() }
             >
               Register
             </button>
