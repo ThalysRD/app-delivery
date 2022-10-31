@@ -27,9 +27,9 @@ export default class CustomerProducts extends Component {
     };
   }
 
-componentDidMount(){
-  this.reciveProducts()
-}
+  componentDidMount() {
+    this.reciveProducts();
+  }
 
   reciveProducts = async () => {
     const response = await getProducts();
