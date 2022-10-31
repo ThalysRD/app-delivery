@@ -24,6 +24,7 @@ const createUser = async (newUser) => {
 };
 
 const getAllUsers = async () => {
+  console.log(User);
   const users = await User.findAll();
   return users.map((user) => {
     const result = {
