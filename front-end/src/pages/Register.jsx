@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { setToken, requestRegister } from '../services/requests';
 
 export default class Register extends Component {
   constructor(props) {
@@ -7,13 +9,35 @@ export default class Register extends Component {
     this.state = {
       email: '',
       password: '',
-      username: '',
+      name: '',
+      role: 'customer',
+      isRegistered: false,
+      registrationFailure: false,
     };
   }
 
+  register = async () => {
+    try {
+      const { name, email, password, role } = this.state;
+      const { token } = await requestRegister({ email, password, name, role });
+      setToken(token);
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+      this.setState({
+        isRegistered: true,
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        registrationFailure: true,
+      });
+    }
+  };
+
   usernameChange = ({ target }) => {
     this.setState({
-      username: target.value,
+      name: target.value,
     });
   };
 
@@ -30,18 +54,23 @@ export default class Register extends Component {
   };
 
   checkValidateRegister = () => {
-    const { username, email, password } = this.state;
+    const { name, email, password } = this.state;
     const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const emailValidate = regex.test(String(email).toLowerCase());
     const minCharactersLength = 12;
     const minPasswordLength = 6;
-    return !(username.length >= minCharactersLength
+    return !(name.length >= minCharactersLength
        && emailValidate
       && password.length >= minPasswordLength);
   };
 
   render() {
-    const { username, email, password } = this.state;
+    const { name, email, password, isRegistered, registrationFailure } = this.state;
+    if (isRegistered) {
+      const { history } = this.props;
+      console.log(this.props);
+      history.push('/customer/products');
+    }
     return (
       <section>
         <form>
@@ -52,7 +81,7 @@ export default class Register extends Component {
               type="text"
               data-testid="common_register__input-name"
               onChange={ this.usernameChange }
-              value={ username }
+              value={ name }
             />
           </label>
           <label htmlFor="input-email">
@@ -75,11 +104,21 @@ export default class Register extends Component {
               value={ password }
             />
           </label>
+          {
+            (registrationFailure)
+              ? (
+                <p data-testid="common_register__element-invalid_register">
+                  O endereço de e-mail já foi cadastrador.
+                </p>
+              )
+              : null
+          }
           <div>
             <button
               type="button"
               data-testid="common_register__button-register"
               disabled={ this.checkValidateRegister() }
+              onClick={ (event) => this.register(event) }
             >
               Register
             </button>
@@ -89,3 +128,13 @@ export default class Register extends Component {
     );
   }
 }
+
+Register.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+};
+
+Register.defaultProps = {
+  history: PropTypes.push,
+};
