@@ -32,7 +32,7 @@ export default class LoginCard extends Component {
         isLogged: true,
       });
 
-      history.push('/customers/products');
+      history.push('/customer/products');
     } catch (error) {
       console.error(error);
       this.setState({
