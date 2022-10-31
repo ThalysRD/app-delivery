@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
-    console.log('NavBar');
 
+    const user = JSON.parse(localStorage.getItem('storage'));
+    console.log(user);
     this.state = {
-      username: localStorage.getItem('name'),
+      username: user.name,
     };
   }
 
   componentDidMount() {
-    const username = localStorage.getItem('name');
+    const user = JSON.parse(localStorage.getItem('storage'));
 
-    if (!username) {
+    if (!user) {
       this.setState({
         username: 'Usuário',
       });
