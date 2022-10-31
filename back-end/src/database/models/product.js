@@ -7,7 +7,7 @@ const Product = (sequelize, DataTypes) => {
         allowNull: false,
       } ,
       name: DataTypes.STRING,
-      price: DataTypes.FLOAT,
+      price: DataTypes.DECIMAL,
       url_image: DataTypes.STRING,
     }, {
       tableName: 'Products',

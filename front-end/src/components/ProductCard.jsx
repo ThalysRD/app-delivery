@@ -51,17 +51,17 @@ export default class ProductCard extends Component {
 
     return (
       <div>
+        <div data-testid={ `customer_products__element-card-title-${index}` }>
+          { product.name }
+        </div>
         <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-          { product.price }
+          { product.price.toFixed(2) }
         </div>
         <img
           src={ product.url_image }
           alt="produto"
           data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
         />
-        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
-          { product.name }
-        </div>
         <div>
           <button
             type="button"
