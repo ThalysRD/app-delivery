@@ -11,6 +11,7 @@ export default class CustomerProducts extends Component {
 
     this.state = {
       products: [],
+      totalPrice: 0,
     };
   }
 
@@ -20,7 +21,7 @@ export default class CustomerProducts extends Component {
 
   reciveProducts = async () => {
     const response = await getProducts();
-    console.log(response);
+
     this.setState({
       products: response,
     });
@@ -28,12 +29,13 @@ export default class CustomerProducts extends Component {
 
   render() {
     const { history } = this.props;
-    const { products } = this.state;
+    const { products, totalPrice } = this.state;
     return (
       <div>
         <NavBar
           history={ history }
         />
+        <div>{ totalPrice }</div>
         {
           products.map((product, index) => (
             <ProductCard

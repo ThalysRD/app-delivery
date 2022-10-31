@@ -20,6 +20,15 @@ export default class ProductCard extends Component {
     }
   };
 
+  saveCarShop = (quantity) => {
+    const { index } = this.props;
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+
+    carShop[index + 1] = quantity;
+
+    localStorage.setItem('carShop', JSON.stringify(carShop));
+  };
+
   handleChange = ({ target }) => {
     this.setState({
       quantity: target.value,
@@ -36,26 +45,32 @@ export default class ProductCard extends Component {
   addQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity + 1,
-    }));
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+    });
   };
 
   subtractQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity - 1,
-    }), () => this.checkQuantity());
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+      this.checkQuantity();
+    });
   };
 
   render() {
     const { product, index } = this.props;
     const { quantity } = this.state;
-
     return (
       <div>
-        <div data-testid={ `customer_products__element-card-title-${index}` }>
+        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
           { product.name }
         </div>
         <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-          { product.price.toFixed(2) }
+          { JSON.stringify(product.price).replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
