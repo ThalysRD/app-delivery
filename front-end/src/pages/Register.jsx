@@ -21,14 +21,11 @@ export default class Register extends Component {
       const { name, email, password, role } = this.state;
       const { token } = await requestRegister({ email, password, name, role });
       setToken(token);
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
+      localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
       this.setState({
         isRegistered: true,
       });
     } catch (error) {
-      console.log(error);
       this.setState({
         registrationFailure: true,
       });
@@ -68,7 +65,6 @@ export default class Register extends Component {
     const { name, email, password, isRegistered, registrationFailure } = this.state;
     if (isRegistered) {
       const { history } = this.props;
-      console.log(this.props);
       history.push('/customer/products');
     }
     return (

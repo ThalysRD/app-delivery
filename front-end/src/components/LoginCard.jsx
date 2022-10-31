@@ -32,7 +32,6 @@ export default class LoginCard extends Component {
         isLogged: true,
       });
     } catch (error) {
-      console.error(error);
       this.setState({
         failedLogin: true,
       });
@@ -64,7 +63,6 @@ export default class LoginCard extends Component {
     const { email, password, isLogged, failedLogin } = this.state;
     if (isLogged) {
       const { history } = this.props;
-      console.log(this.props);
       history.push('/customer/products');
     }
     return (
