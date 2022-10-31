@@ -15,6 +15,9 @@ export const requestLogin = async (body) => {
 
 export const getProducts = async () => {
   const { data } = await api.get('/products');
+
+export const requestRegister = async (body) => {
+  const { data } = await api.post('/register', body);
   return data;
 };
 
