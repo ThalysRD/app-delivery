@@ -54,7 +54,7 @@ export default class ProductCard extends Component {
           { product.name }
         </div>
         <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-          { product.price.replace(/\./, ',') }
+          { JSON.stringify(product.price).replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
