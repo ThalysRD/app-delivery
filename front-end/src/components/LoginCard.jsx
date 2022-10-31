@@ -15,24 +15,23 @@ export default class LoginCard extends Component {
     };
   }
 
+  register = () => {
+    const { history } = this.props;
+    history.push('/register');
+  };
+
   login = async (e) => {
     e.preventDefault();
     try {
       const { email, password } = this.state;
-      const { token, role, name } = await requestLogin({ email, password });
-      const { history } = this.props;
-
+      const { name, token, role } = await requestLogin({ email, password });
       setToken(token);
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-      localStorage.setItem('name', name);
+      localStorage.setItem('storage', JSON.stringify({ name, email, role, token }));
 
       this.setState({
         isLogged: true,
       });
-
-      history.push('/customer/products');
     } catch (error) {
       console.error(error);
       this.setState({
@@ -121,6 +120,7 @@ export default class LoginCard extends Component {
             <button
               data-testid="common_login__button-register"
               type="button"
+              onClick={ () => this.register() }
             >
               Register
             </button>
