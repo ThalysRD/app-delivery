@@ -20,7 +20,8 @@ const addSaleProducts = async (products, saleId) => {
   const productsList = products.map((product) => {
     const obj = {
       saleId,
-      productId: product,
+      productId: product.id,
+      quantity: product.quantity,
     };
     return obj;
   });
@@ -30,7 +31,6 @@ const addSaleProducts = async (products, saleId) => {
 const newSale = async (saleInfo) => {
   const sale = await addSale(saleInfo);
   const saleId = sale.id;
-  console.log(saleId);
   await addSaleProducts(saleInfo.products, saleId);
   return sale.id;
 };

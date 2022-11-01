@@ -19,6 +19,7 @@ const userLogin = async (email, password) => {
   const token = jwt.sign({ data: email }, await fs.readFile(jwtKey, 'utf-8'), jwtConfig);
   return {
     token,
+    id: user.id,
     role: user.role,
     name: user.name,
     email: user.email, 
