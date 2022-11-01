@@ -12,6 +12,7 @@ export default class LoginCard extends Component {
       password: '',
       isLogged: false,
       failedLogin: false,
+      role: '',
     };
   }
 
@@ -30,6 +31,7 @@ export default class LoginCard extends Component {
 
       this.setState({
         isLogged: true,
+        role,
       });
     } catch (error) {
       this.setState({
@@ -60,10 +62,12 @@ export default class LoginCard extends Component {
   };
 
   render() {
-    const { email, password, isLogged, failedLogin } = this.state;
+    const { email, password, isLogged, failedLogin, role } = this.state;
     if (isLogged) {
       const { history } = this.props;
-      history.push('/customer/products');
+      if (role === 'customer') history.push('/customer/products');
+      if (role === 'seller') history.push('/seller/orders');
+      if (role === 'administrator') history.push('/admin/manage');
     }
     return (
       <section>
