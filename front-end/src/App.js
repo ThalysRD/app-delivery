@@ -7,7 +7,6 @@ import Register from './pages/Register';
 import AdminManage from './pages/AdminManage';
 import Checkout from './pages/Checkout';
 
-
 function App() {
   return (
     <Switch>
