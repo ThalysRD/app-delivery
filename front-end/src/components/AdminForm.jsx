@@ -10,6 +10,7 @@ export default class AdminForm extends Component {
       password: '',
       name: '',
       role: 'customer',
+      registrationFailure: false,
     };
   }
 
@@ -25,7 +26,7 @@ export default class AdminForm extends Component {
     } catch (error) {
       console.log(error);
       this.setState({
-        // registrationFailure: true,
+        registrationFailure: true,
       });
     }
   };
@@ -66,7 +67,7 @@ export default class AdminForm extends Component {
   };
 
   render() {
-    const { name, email, password, role } = this.state;
+    const { name, email, password, role, registrationFailure } = this.state;
     return (
       <section>
         <form>
@@ -120,6 +121,18 @@ export default class AdminForm extends Component {
             </select>
           </label>
         </form>
+        {
+          (registrationFailure)
+            ? (
+              <p data-testid="admin_manage__element-invalid-register">
+                {
+                  `O endereço de e-mail já está cadastrado.
+                    Por favor, insira um email diferente.`
+                }
+              </p>
+            )
+            : null
+        }
         <button
           type="button"
           data-testid="admin_manage__button-register"
