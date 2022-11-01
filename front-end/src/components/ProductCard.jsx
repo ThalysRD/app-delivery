@@ -90,22 +90,22 @@ export default class ProductCard extends Component {
     const { quantity } = this.state;
     return (
       <div>
-        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
+        <div data-testid={ `customer_products__element-card-title-${index}` }>
           { product.name }
         </div>
-        <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
-          { JSON.stringify(product.price).replace(/\./, ',') }
+        <div data-testid={ `customer_products__element-card-price-${index}` }>
+          { product.price.replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
           alt="produto"
-          data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
+          data-testid={ `customer_products__img-card-bg-image-${index}` }
         />
         <div>
           <button
             type="button"
             onClick={ this.subtractQuantity }
-            data-testid={ `customer_products__button-card-rm-item-${index + 1}` }
+            data-testid={ `customer_products__button-card-rm-item-${index}` }
           >
             -
           </button>
@@ -114,12 +114,12 @@ export default class ProductCard extends Component {
             value={ quantity }
             name="quantity"
             onChange={ this.handleChange }
-            data-testid={ `customer_products__input-card-quantity-${index + 1}` }
+            data-testid={ `customer_products__input-card-quantity-${index}` }
           />
           <button
             type="button"
             onClick={ this.addQuantity }
-            data-testid={ `customer_products__button-card-add-item-${index + 1}` }
+            data-testid={ `customer_products__button-card-add-item-${index}` }
           >
             +
           </button>
@@ -133,7 +133,7 @@ export default class ProductCard extends Component {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     url_image: PropTypes.string.isRequired,
   }).isRequired,
 

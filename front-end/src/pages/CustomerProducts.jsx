@@ -20,6 +20,11 @@ export default class CustomerProducts extends Component {
     this.getTotalPrice();
   }
 
+  redirectToCheckout = () => {
+    const { history } = this.props;
+    history.push('/customer/checkout');
+  };
+
   getTotalPrice = () => {
     const carShop = JSON.parse(localStorage.getItem('carShop'));
     let totalPrice = 0;
@@ -35,7 +40,7 @@ export default class CustomerProducts extends Component {
 
   reciveProducts = async () => {
     const response = await getProducts();
-
+    console.log(response);
     this.setState({
       products: response,
     });
@@ -51,15 +56,21 @@ export default class CustomerProducts extends Component {
         />
         <div>{ totalPrice }</div>
         {
-          products.map((product, index) => (
+          products.map((product) => (
             <ProductCard
-              key={ index }
+              key={ product.id }
               product={ product }
-              index={ index }
+              index={ product.id }
               getTotalPrice={ this.getTotalPrice }
             />
           ))
         }
+        <button
+          type="button"
+          onClick={ this.redirectToCheckout }
+        >
+          Ir para carrinho
+        </button>
       </div>
     );
   }
