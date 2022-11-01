@@ -11,22 +11,25 @@ export default class ProductCard extends Component {
   }
 
   componentDidMount() {
-    const product = this.checkIfWasSelected();
+    const product = this.getSelectedProducts();
 
     if (product.length) {
       this.setState({
-        quantity: product[0][1][0],
+        quantity: product[0].quantity,
+      });
+    } else {
+      this.setState({
+        quantity: 0,
       });
     }
   }
 
-  checkIfWasSelected = () => {
+  getSelectedProducts = () => {
     const { index } = this.props;
 
     const carShop = JSON.parse(localStorage.getItem('carShop'));
-    const products = Object.entries(carShop);
 
-    const thisProduct = products.filter((product) => Number(product[0]) - 1 === index);
+    const thisProduct = carShop.filter((product) => product.id === index);
 
     return thisProduct;
   };
@@ -41,11 +44,25 @@ export default class ProductCard extends Component {
     }
   };
 
-  saveCarShop = (quantity) => {
+  saveCarShop = (quantity = 0) => {
     const { index, product, getTotalPrice } = this.props;
     const carShop = JSON.parse(localStorage.getItem('carShop'));
 
-    carShop[index + 1] = [quantity, product.price];
+    const alreadyExist = carShop.some(
+      (prod) => prod.id === index,
+    );
+
+    if (alreadyExist) {
+      const savedProduct = carShop.find((prod) => prod.id === index);
+
+      savedProduct.quantity = quantity;
+    } else {
+      carShop.push({
+        id: index,
+        price: product.price,
+        quantity,
+      });
+    }
 
     localStorage.setItem('carShop', JSON.stringify(carShop));
     getTotalPrice();
@@ -94,7 +111,7 @@ export default class ProductCard extends Component {
           { product.name }
         </div>
         <div data-testid={ `customer_products__element-card-price-${index}` }>
-          { product.price.replace(/\./, ',') }
+          { JSON.stringify(product.price).replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
@@ -133,7 +150,7 @@ export default class ProductCard extends Component {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     url_image: PropTypes.string.isRequired,
   }).isRequired,
 

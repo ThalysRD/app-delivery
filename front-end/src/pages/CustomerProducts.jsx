@@ -12,6 +12,7 @@ export default class CustomerProducts extends Component {
     this.state = {
       products: [],
       totalPrice: 0,
+      carDisabled: true,
     };
   }
 
@@ -27,20 +28,27 @@ export default class CustomerProducts extends Component {
 
   getTotalPrice = () => {
     const carShop = JSON.parse(localStorage.getItem('carShop'));
-    let totalPrice = 0;
 
-    Object.values(carShop).forEach((product) => {
-      totalPrice += product[0] * product[1];
-    });
-
+    const total = carShop.reduce((acc, cur) => (cur.price * cur.quantity) + acc, 0);
     this.setState({
-      totalPrice: Number(totalPrice.toFixed(2)),
+      totalPrice: total,
+    }, () => {
+      const { totalPrice } = this.state;
+
+      if (totalPrice) {
+        this.setState({
+          carDisabled: false,
+        });
+      } else {
+        this.setState({
+          carDisabled: true,
+        });
+      }
     });
   };
 
   reciveProducts = async () => {
     const response = await getProducts();
-    console.log(response);
     this.setState({
       products: response,
     });
@@ -48,13 +56,12 @@ export default class CustomerProducts extends Component {
 
   render() {
     const { history } = this.props;
-    const { products, totalPrice } = this.state;
+    const { products, totalPrice, carDisabled } = this.state;
     return (
       <div>
         <NavBar
           history={ history }
         />
-        <div>{ totalPrice }</div>
         {
           products.map((product) => (
             <ProductCard
@@ -68,8 +75,13 @@ export default class CustomerProducts extends Component {
         <button
           type="button"
           onClick={ this.redirectToCheckout }
+          disabled={ carDisabled }
+          data-testid="customer_products__button-cart"
         >
-          Ir para carrinho
+          carrinho:
+          <div data-testid="customer_products__checkout-bottom-value">
+            { totalPrice.toFixed(2).replace(/\./, ',') }
+          </div>
         </button>
       </div>
     );
