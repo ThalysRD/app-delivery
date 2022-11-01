@@ -19,6 +19,10 @@ module.exports = {
           },
           primaryKey:true,
         },
+        quantity:{
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        }
       })
     },
   
