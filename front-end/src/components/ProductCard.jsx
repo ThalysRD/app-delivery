@@ -10,6 +10,27 @@ export default class ProductCard extends Component {
     };
   }
 
+  componentDidMount() {
+    const product = this.checkIfWasSelected();
+
+    if (product.length) {
+      this.setState({
+        quantity: product[0][1][0],
+      });
+    }
+  }
+
+  checkIfWasSelected = () => {
+    const { index } = this.props;
+
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+    const products = Object.entries(carShop);
+
+    const thisProduct = products.filter((product) => Number(product[0]) - 1 === index);
+
+    return thisProduct;
+  };
+
   checkQuantity = () => {
     const { quantity } = this.state;
 
