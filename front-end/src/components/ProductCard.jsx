@@ -20,6 +20,16 @@ export default class ProductCard extends Component {
     }
   };
 
+  saveCarShop = (quantity) => {
+    const { index, product, getTotalPrice } = this.props;
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+
+    carShop[index + 1] = [quantity, product.price];
+
+    localStorage.setItem('carShop', JSON.stringify(carShop));
+    getTotalPrice();
+  };
+
   handleChange = ({ target }) => {
     this.setState({
       quantity: target.value,
@@ -30,19 +40,28 @@ export default class ProductCard extends Component {
           quantity: 0,
         });
       }
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
     });
   };
 
   addQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity + 1,
-    }));
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+    });
   };
 
   subtractQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity - 1,
-    }), () => this.checkQuantity());
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+      this.checkQuantity();
+    });
   };
 
   render() {
@@ -98,4 +117,6 @@ ProductCard.propTypes = {
   }).isRequired,
 
   index: PropTypes.number.isRequired,
+
+  getTotalPrice: PropTypes.func.isRequired,
 };
