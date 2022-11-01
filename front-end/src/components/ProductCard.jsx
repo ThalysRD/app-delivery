@@ -21,12 +21,13 @@ export default class ProductCard extends Component {
   };
 
   saveCarShop = (quantity) => {
-    const { index } = this.props;
+    const { index, product, getTotalPrice } = this.props;
     const carShop = JSON.parse(localStorage.getItem('carShop'));
 
-    carShop[index + 1] = quantity;
+    carShop[index + 1] = [quantity, product.price];
 
     localStorage.setItem('carShop', JSON.stringify(carShop));
+    getTotalPrice();
   };
 
   handleChange = ({ target }) => {
@@ -39,6 +40,8 @@ export default class ProductCard extends Component {
           quantity: 0,
         });
       }
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
     });
   };
 
@@ -114,4 +117,6 @@ ProductCard.propTypes = {
   }).isRequired,
 
   index: PropTypes.number.isRequired,
+
+  getTotalPrice: PropTypes.func.isRequired,
 };

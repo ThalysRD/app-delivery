@@ -17,7 +17,21 @@ export default class CustomerProducts extends Component {
 
   componentDidMount() {
     this.reciveProducts();
+    this.getTotalPrice();
   }
+
+  getTotalPrice = () => {
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+    let totalPrice = 0;
+
+    Object.values(carShop).forEach((product) => {
+      totalPrice += product[0] * product[1];
+    });
+
+    this.setState({
+      totalPrice: Number(totalPrice.toFixed(2)),
+    });
+  };
 
   reciveProducts = async () => {
     const response = await getProducts();
@@ -42,6 +56,7 @@ export default class CustomerProducts extends Component {
               key={ index }
               product={ product }
               index={ index }
+              getTotalPrice={ this.getTotalPrice }
             />
           ))
         }
