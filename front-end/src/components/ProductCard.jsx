@@ -61,6 +61,7 @@ export default class ProductCard extends Component {
         id: index,
         price: product.price,
         quantity,
+        name: product.name,
       });
     }
 
