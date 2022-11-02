@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import CheckoutDetails from '../components/CheckoutDetails';
+import CheckoutProducts from '../components/CheckoutProducts';
 
-export default class Home extends Component {
+export default class Checkout extends Component {
   render() {
     return (
-      <section>Checkout</section>
+      <section>
+        <CheckoutProducts />
+        <CheckoutDetails />
+      </section>
     );
   }
 }
