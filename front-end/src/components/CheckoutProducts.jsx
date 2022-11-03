@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-/* import { requestCheckout } from '../services/requests'; */
+import PropTypes from 'prop-types';
 import CheckoutTable from './CheckoutTable';
 
 export default class CheckoutProducts extends Component {
@@ -13,16 +13,19 @@ export default class CheckoutProducts extends Component {
 
   componentDidMount() {
     const carShop = JSON.parse(localStorage.getItem('carShop'));
+    const { funcTotalPrice, funcProducts } = this.props;
     console.log(carShop);
     if (carShop.length >= 1) {
       this.setState({
         products: carShop,
       });
+      funcProducts(carShop);
     }
     const totalPrice = carShop.reduce((acc, cur) => cur.price * cur.quantity + acc, 0);
     this.setState({
       totalPrice,
     });
+    funcTotalPrice(totalPrice.toFixed(2));
   }
 
   remove = (id) => {
@@ -38,17 +41,6 @@ export default class CheckoutProducts extends Component {
       totalPrice,
     });
   };
-  /*
-  checkout = async () => {
-    const { totalPrice } = this.state;
-    const api = await requestCheckout({ id, idSeller, totalPrice, address, number });
-  };
-
-  address = ({ target }) => {
-    this.setState({
-      address: target.value,
-    });
- */
 
   render() {
     const { products, totalPrice } = this.state;
@@ -90,3 +82,8 @@ export default class CheckoutProducts extends Component {
     );
   }
 }
+CheckoutProducts.propTypes = {
+
+  funcTotalPrice: PropTypes.func.isRequired,
+  funcProducts: PropTypes.func.isRequired,
+};
