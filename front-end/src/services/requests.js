@@ -23,4 +23,9 @@ export const requestRegister = async (body) => {
   return data;
 };
 
+export const getOrderDetails = async (id) => {
+  const { data } = await api.get(`/orders/${id}`);
+  return data;
+};
+
 export default api;
