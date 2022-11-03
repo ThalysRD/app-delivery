@@ -33,4 +33,10 @@ export const requestSeller = async (body) => {
   return data;
 };
 
+export const requestOrders = async (body) => {
+  const { userId } = body;
+  const { data } = await api.get(`/orders/${userId}`);
+  return data;
+};
+
 export default api;

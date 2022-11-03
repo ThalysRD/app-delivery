@@ -1,7 +1,7 @@
 const ordersService = require('../services/ordersService');
 
 const getOrders = async (req, res) => {
-  const orders = await ordersService.getOrders(req.body.userId);
+  const orders = await ordersService.getOrders(Number(req.params.id));
   return res.status(201).json(orders);
 };
 
