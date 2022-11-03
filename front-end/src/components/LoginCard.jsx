@@ -25,9 +25,9 @@ export default class LoginCard extends Component {
     e.preventDefault();
     try {
       const { email, password } = this.state;
-      const { name, token, role } = await requestLogin({ email, password });
+      const { id, name, token, role } = await requestLogin({ email, password });
       setToken(token);
-      localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+      localStorage.setItem('user', JSON.stringify({ id, name, email, role, token }));
       localStorage.setItem('carShop', JSON.stringify([]));
 
       this.setState({

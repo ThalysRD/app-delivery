@@ -17,7 +17,7 @@ const SaleProduct = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {
-    tableName: 'salesProducts',
+    tableName: 'sales_products',
     timestamps: false,
   });
 

@@ -68,6 +68,6 @@ CheckoutTable.propTypes = {
   index: PropTypes.number.isRequired,
   describe: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
-  unitValue: PropTypes.number.isRequired,
+  unitValue: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
 };
