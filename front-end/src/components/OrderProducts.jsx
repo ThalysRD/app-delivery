@@ -30,15 +30,37 @@ class OrderProducts extends Component {
 
   render() {
     const { products, totalPrice, details, sellerName } = this.state;
+    const testId = 'customer_order_details__element-order-';
     console.log(details);
     return (
       <div>
         <header>Detalhe do Pedido</header>
-        <span>{`Pedido ${details.id}`}</span>
-        <span>{`P. Vend: ${sellerName}`}</span>
-        <span>{details.saleDate}</span>
-        <span>{details.status}</span>
-        <button type="button">Marcar como entregue</button>
+        <span
+          data-testId={ `${testId}details-label-order-id` }
+        >
+          {`Pedido ${details.id}`}
+        </span>
+        <span
+          data-testId={ `${testId}details-label-seller-name` }
+        >
+          {`P. Vend: ${sellerName}`}
+        </span>
+        <span
+          data-testId={ `${testId}details-label-order-date` }
+        >
+          {details.saleDate}
+        </span>
+        <span
+          data-testId={ `${testId}details-label-delivery-status1` }
+        >
+          {details.status}
+        </span>
+        <button
+          type="button"
+          data-testId="customer_order_details__button-delivery-check"
+        >
+          Marcar como entregue
+        </button>
         <table>
           <thead>
             <tr>
