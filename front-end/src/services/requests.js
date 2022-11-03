@@ -28,4 +28,14 @@ export const getOrderDetails = async (id) => {
   return data;
 };
 
+export const requestCheckout = async (body) => {
+  const { data } = await api.post('/checkout', body);
+  return data;
+};
+
+export const requestSeller = async (body) => {
+  const { data } = await api.post('/checkout', body);
+  return data;
+};
+
 export default api;

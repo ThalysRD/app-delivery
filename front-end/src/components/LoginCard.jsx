@@ -12,6 +12,7 @@ export default class LoginCard extends Component {
       password: '',
       isLogged: false,
       failedLogin: false,
+      role: '',
     };
   }
 
@@ -27,12 +28,13 @@ export default class LoginCard extends Component {
       const { name, token, role } = await requestLogin({ email, password });
       setToken(token);
       localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
+      localStorage.setItem('carShop', JSON.stringify([]));
 
       this.setState({
         isLogged: true,
+        role,
       });
     } catch (error) {
-      console.error(error);
       this.setState({
         failedLogin: true,
       });
@@ -61,11 +63,12 @@ export default class LoginCard extends Component {
   };
 
   render() {
-    const { email, password, isLogged, failedLogin } = this.state;
+    const { email, password, isLogged, failedLogin, role } = this.state;
     if (isLogged) {
       const { history } = this.props;
-      console.log(this.props);
-      history.push('/customer/products');
+      if (role === 'customer') history.push('/customer/products');
+      if (role === 'seller') history.push('/seller/orders');
+      if (role === 'administrator') history.push('/admin/manage');
     }
     return (
       <section>

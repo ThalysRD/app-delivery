@@ -10,6 +10,30 @@ export default class ProductCard extends Component {
     };
   }
 
+  componentDidMount() {
+    const product = this.getSelectedProducts();
+
+    if (product.length) {
+      this.setState({
+        quantity: product[0].quantity,
+      });
+    } else {
+      this.setState({
+        quantity: 0,
+      });
+    }
+  }
+
+  getSelectedProducts = () => {
+    const { index } = this.props;
+
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+
+    const thisProduct = carShop.filter((product) => product.id === index);
+
+    return thisProduct;
+  };
+
   checkQuantity = () => {
     const { quantity } = this.state;
 
@@ -18,6 +42,31 @@ export default class ProductCard extends Component {
         quantity: 0,
       });
     }
+  };
+
+  saveCarShop = (quantity = 0) => {
+    const { index, product, getTotalPrice } = this.props;
+    const carShop = JSON.parse(localStorage.getItem('carShop'));
+
+    const alreadyExist = carShop.some(
+      (prod) => prod.id === index,
+    );
+
+    if (alreadyExist) {
+      const savedProduct = carShop.find((prod) => prod.id === index);
+
+      savedProduct.quantity = quantity;
+    } else {
+      carShop.push({
+        id: index,
+        price: product.price,
+        quantity,
+        name: product.name,
+      });
+    }
+
+    localStorage.setItem('carShop', JSON.stringify(carShop));
+    getTotalPrice();
   };
 
   handleChange = ({ target }) => {
@@ -30,19 +79,28 @@ export default class ProductCard extends Component {
           quantity: 0,
         });
       }
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
     });
   };
 
   addQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity + 1,
-    }));
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+    });
   };
 
   subtractQuantity = () => {
     this.setState((previousState) => ({
       quantity: previousState.quantity - 1,
-    }), () => this.checkQuantity());
+    }), () => {
+      const { quantity } = this.state;
+      this.saveCarShop(quantity);
+      this.checkQuantity();
+    });
   };
 
   render() {
@@ -50,22 +108,22 @@ export default class ProductCard extends Component {
     const { quantity } = this.state;
     return (
       <div>
-        <div data-testid={ `customer_products__element-card-title-${index + 1}` }>
+        <div data-testid={ `customer_products__element-card-title-${index}` }>
           { product.name }
         </div>
-        <div data-testid={ `customer_products__element-card-price-${index + 1}` }>
+        <div data-testid={ `customer_products__element-card-price-${index}` }>
           { JSON.stringify(product.price).replace(/\./, ',') }
         </div>
         <img
           src={ product.url_image }
           alt="produto"
-          data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
+          data-testid={ `customer_products__img-card-bg-image-${index}` }
         />
         <div>
           <button
             type="button"
             onClick={ this.subtractQuantity }
-            data-testid={ `customer_products__button-card-rm-item-${index + 1}` }
+            data-testid={ `customer_products__button-card-rm-item-${index}` }
           >
             -
           </button>
@@ -74,12 +132,12 @@ export default class ProductCard extends Component {
             value={ quantity }
             name="quantity"
             onChange={ this.handleChange }
-            data-testid={ `customer_products__input-card-quantity-${index + 1}` }
+            data-testid={ `customer_products__input-card-quantity-${index}` }
           />
           <button
             type="button"
             onClick={ this.addQuantity }
-            data-testid={ `customer_products__button-card-add-item-${index + 1}` }
+            data-testid={ `customer_products__button-card-add-item-${index}` }
           >
             +
           </button>
@@ -98,4 +156,6 @@ ProductCard.propTypes = {
   }).isRequired,
 
   index: PropTypes.number.isRequired,
+
+  getTotalPrice: PropTypes.func.isRequired,
 };

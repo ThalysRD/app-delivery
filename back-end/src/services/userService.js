@@ -23,41 +23,56 @@ const createUser = async (newUser) => {
   return token;
 };
 
-const getAllUsers = async () => {
-  console.log(User);
-  const users = await User.findAll();
-  return users.map((user) => {
-    const result = {
-      id: user.id,
-      displayName: user.displayName,
-      email: user.email,
-      image: user.image, 
-    };
-    return result;
+const getSellers = async () => {
+  const sellers = await User.findAll({ 
+    where: { role: 'seller' },
+    attributes: { exclude: ['email', 'password', 'role'] },
   });
+  return sellers;
 };
 
-const getByUserId = async (id) => {
-  const user = await User.findOne({ where: { id } });
-  if (!user) {
-    return undefined;
-  }
-  const result = {
-    id: user.id,
-    displayName: user.displayName,
-    email: user.email,
-    image: user.image,
-  };
-  return result;
-};
+// const getAllUsers = async () => {
+//   console.log(User);
+//   const users = await User.findAll();
+//   return users.map((user) => {
+//     const result = {
+//       id: user.id,
+//       displayName: user.displayName,
+//       email: user.email,
+//       image: user.image, 
+//     };
+//     return result;
+//   });
+// };
 
-const deleteMe = async (email) => {
-  const user = await checkEmail(email);
-  const { id } = user;
-  await User.destroy(
-    { where: { id } },
-  );
-  return undefined;
-};
+// const getByUserId = async (id) => {
+//   const user = await User.findOne({ where: { id } });
+//   if (!user) {
+//     return undefined;
+//   }
+//   const result = {
+//     id: user.id,
+//     displayName: user.displayName,
+//     email: user.email,
+//     image: user.image,
+//   };
+//   return result;
+// };
+
+// const deleteMe = async (email) => {
+//   const user = await checkEmail(email);
+//   const { id } = user;
+//   await User.destroy(
+//     { where: { id } },
+//   );
+//   return undefined;
+// };
  
-module.exports = { checkEmail, createUser, getAllUsers, getByUserId, deleteMe };
+module.exports = { 
+  checkEmail, 
+  createUser,
+  getSellers,
+  // getAllUsers,
+  // getByUserId,
+  // deleteMe 
+};
