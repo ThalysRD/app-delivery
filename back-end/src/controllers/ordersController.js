@@ -12,7 +12,7 @@ const getOrderDetails = async (req, res) => {
 
 const orderDelivered = async (req, res) => {
   const result = await ordersService.orderDelivered(req.params.id);
-  return res.status(200).json( {status: result} );
+  return res.status(200).json({ status: result });
 };
 
 module.exports = { getOrders, getOrderDetails, orderDelivered };

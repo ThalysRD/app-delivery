@@ -8,5 +8,4 @@ ordersRoute.get('/', ordersController.getOrders);
 ordersRoute.get('/:id', ordersController.getOrderDetails);
 ordersRoute.post('/delivered/:id', ordersController.orderDelivered);
 
-
 module.exports = ordersRoute;
