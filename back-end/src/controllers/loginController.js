@@ -13,4 +13,10 @@ const userLogin = async (req, res) => {
   return res.status(200).json(token);
 };
 
-module.exports = { userLogin };
+const loginValidate = async (req, res) => {
+  const email = req.user.data;
+  const role = await loginService.loginValidate(email);
+  return res.status(200).json({ role });
+};
+
+module.exports = { userLogin, loginValidate };
