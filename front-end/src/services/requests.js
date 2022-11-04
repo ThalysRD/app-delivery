@@ -39,4 +39,9 @@ export const requestSeller = async () => {
   return data;
 };
 
+export const orderDelivered = async (id) => {
+  const { data } = await api.post(`/orders/delivered/${id}`);
+  return data;
+};
+
 export default api;
