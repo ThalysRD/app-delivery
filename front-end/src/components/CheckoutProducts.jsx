@@ -14,7 +14,6 @@ export default class CheckoutProducts extends Component {
   componentDidMount() {
     const carShop = JSON.parse(localStorage.getItem('carShop'));
     const { funcTotalPrice, funcProducts } = this.props;
-    console.log(carShop);
     if (carShop.length >= 1) {
       this.setState({
         products: carShop,
@@ -44,7 +43,6 @@ export default class CheckoutProducts extends Component {
 
   render() {
     const { products, totalPrice } = this.state;
-    console.log(products);
     return (
       <div>
         <header>Finalizar Pedido</header>

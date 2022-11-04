@@ -20,12 +20,12 @@ export default class CustomerOrders extends Component {
         <div
           data-testid={ `customer_orders__element-order-date-${order.id}` }
         >
-          { order.saleDate }
+          { new Date(order.saleDate).toLocaleDateString()}
         </div>
         <div
           data-testid={ `customer_orders__element-card-price-${order.id}` }
         >
-          { order.totalPrice }
+          { order.totalPrice.replace(/\./, ',') }
         </div>
         <br />
       </div>
