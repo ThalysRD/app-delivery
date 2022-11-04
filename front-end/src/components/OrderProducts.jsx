@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 import { getOrderDetails } from '../services/requests';
 import OrderTable from './OrderTable';
 
@@ -17,7 +18,6 @@ class OrderProducts extends Component {
   async componentDidMount() {
     const { match } = this.props;
     const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
-    // console.log(orderDetails);
     const totalPrice = orderProducts.reduce((acc, cur) => cur
       .Product.price * cur.quantity + acc, 0);
     this.setState({
@@ -92,6 +92,10 @@ class OrderProducts extends Component {
     );
   }
 }
+
+OrderProducts.propTypes = {
+  match: PropTypes.number.isRequired,
+};
 
 const OrderProductsWithRouter = withRouter(OrderProducts);
 export default OrderProductsWithRouter;
