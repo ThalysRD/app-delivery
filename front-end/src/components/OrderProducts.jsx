@@ -13,7 +13,6 @@ class OrderProducts extends Component {
       details: {},
       sellerName: false,
       delivered: false,
-      date: '0',
     };
   }
 
@@ -22,7 +21,6 @@ class OrderProducts extends Component {
     const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
     const totalPrice = orderProducts.reduce((acc, cur) => cur
       .Product.price * cur.quantity + acc, 0);
-    this.transformDate();
     this.setState({
       totalPrice,
       details: orderDetails,
@@ -48,21 +46,8 @@ class OrderProducts extends Component {
     }
   };
 
-  transformDate = () => {
-    const { details } = this.state;
-    const wrongDate = details.saleDate;
-    const year = wrongDate.slice(0, 4);
-    const month = wrongDate.slice(5, 7);
-    const day = wrongDate.slice(8, 10);
-    const correctDate = `${day}/${month}/${year}`;
-    console.log(correctDate);
-    this.setState({
-      date: correctDate,
-    });
-  };
-
   render() {
-    const { products, totalPrice, details, sellerName, delivered, date } = this.state;
+    const { products, totalPrice, details, sellerName, delivered } = this.state;
     const testId = 'customer_order_details__element-order-';
     return (
       <div>
@@ -80,7 +65,7 @@ class OrderProducts extends Component {
         <span
           data-testid={ `${testId}details-label-order-date` }
         >
-          {date}
+          { new Date(details.saleDate).toLocaleDateString()}
         </span>
         <span
           data-testid={ `${testId}details-label-delivery-status1` }
@@ -92,12 +77,6 @@ class OrderProducts extends Component {
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => this.deliveredCheck(details.id) }
           disabled
-        >
-          Marcar como entregue
-        </button>
-        <button
-          type="button"
-          onClick={ () => this.transformDate() }
         >
           Marcar como entregue
         </button>
