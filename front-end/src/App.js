@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import AdminManage from './pages/AdminManage';
 import Checkout from './pages/Checkout';
+import OrderDetails from './pages/OrderDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route exact path="/" component={ Home } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/admin/manage" component={ AdminManage } />
+      <Route exact path="/customer/orders/:id" component={ OrderDetails } />
     </Switch>
   );
 }
