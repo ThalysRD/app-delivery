@@ -24,10 +24,22 @@ export default class NavBar extends Component {
   }
 
   redirectToLogin = () => {
-    localStorage.removeItem('user');
+    localStorage.clear();
     const { history } = this.props;
 
     history.push('/login');
+  };
+
+  redirectToOrders = () => {
+    const { history } = this.props;
+
+    history.push('/customer/orders');
+  };
+
+  redirectToProducts = () => {
+    const { history } = this.props;
+
+    history.push('/customer/products');
   };
 
   render() {
@@ -38,12 +50,14 @@ export default class NavBar extends Component {
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-products"
+          onClick={ this.redirectToProducts }
         >
           Produtos
         </button>
         <button
           type="button"
           data-testid="customer_products__element-navbar-link-orders"
+          onClick={ this.redirectToOrders }
         >
           Meus Pedidos
         </button>
