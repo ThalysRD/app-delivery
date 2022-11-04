@@ -49,4 +49,9 @@ export const requestOrders = async (body) => {
   return data;
 };
 
+export const loginValidate = async () => {
+  const { data } = await api.get('/login/validate');
+  return data;
+};
+
 export default api;
