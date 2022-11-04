@@ -84,7 +84,7 @@ class OrderProducts extends Component {
           </tbody>
         </table>
         <span
-          data-sellerNameid="customer_order_details__element-order-total-price"
+          data-testid="customer_order_details__element-order-total-price"
         >
           {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
         </span>
