@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { requestLogin, setToken } from '../services/requests';
+import { requestLogin, setToken, loginValidate } from '../services/requests';
 
 export default class LoginCard extends Component {
   constructor(props) {
@@ -15,6 +15,24 @@ export default class LoginCard extends Component {
       role: '',
     };
   }
+
+  componentDidMount() {
+    const data = JSON.parse(localStorage.getItem('user'));
+    this.validateLogin(data.token);
+  }
+
+  validateLogin = async (token) => {
+    try {
+      setToken(token);
+      const { role } = await loginValidate();
+      this.setState({
+        isLogged: true,
+        role,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   register = () => {
     const { history } = this.props;
