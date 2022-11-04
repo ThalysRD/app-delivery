@@ -5,6 +5,7 @@ const api = axios.create({
 });
 
 export const setToken = (token) => {
+  console.log(token);
   api.defaults.headers.common.Authorization = token;
 };
 
@@ -33,8 +34,8 @@ export const requestCheckout = async (body) => {
   return data;
 };
 
-export const requestSeller = async (body) => {
-  const { data } = await api.post('/checkout', body);
+export const requestSeller = async () => {
+  const { data } = await api.get('/register/sellers');
   return data;
 };
 
