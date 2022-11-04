@@ -6,7 +6,7 @@ const getOrders = async (req, res) => {
 };
 
 const getOrderDetails = async (req, res) => {
-  const order = await ordersService.getOrderDetails(req.params.id)
+  const order = await ordersService.getOrderDetails(req.params.id);
   return res.status(201).json(order);
 };
 
