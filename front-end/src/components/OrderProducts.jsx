@@ -12,6 +12,7 @@ class OrderProducts extends Component {
       totalPrice: 0,
       details: {},
       sellerName: false,
+      delivered: false,
     };
   }
 
@@ -26,10 +27,28 @@ class OrderProducts extends Component {
       products: orderProducts,
       sellerName: orderDetails.User.name,
     });
+    if (orderDetails.status === 'Entregue') {
+      this.setState({
+        delivered: true,
+      });
+    }
   }
 
+  deliveredCheck = async (id) => {
+    try {
+      const { status } = await orderDelivered(id);
+      if (status === 'Entregue') {
+        this.setState({
+          delivered: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
-    const { products, totalPrice, details, sellerName } = this.state;
+    const { products, totalPrice, details, sellerName, delivered } = this.state;
     const testId = 'customer_order_details__element-order-';
     console.log(details);
     return (
@@ -58,7 +77,8 @@ class OrderProducts extends Component {
         <button
           type="button"
           data-testId="customer_order_details__button-delivery-check"
-          onClick={ orderDelivered(details.id) }
+          onClick={ () => this.deliveredCheck(details.id) }
+          disabled={ delivered }
         >
           Marcar como entregue
         </button>

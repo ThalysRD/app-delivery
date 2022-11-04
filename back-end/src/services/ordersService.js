@@ -22,11 +22,13 @@ const getOrderDetails = async (saleId) => {
 };
 
 const orderDelivered = async (orderId) => {
-  await Sale.update({
+ const [order] = await Sale.update({
     status: 'Entregue',
   }, {
     where: { id: orderId },
   });
+  if(order === 1)
+  return "Entregue"
 };
 
 module.exports = { getOrders, getOrderDetails, orderDelivered };

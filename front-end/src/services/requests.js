@@ -5,7 +5,6 @@ const api = axios.create({
 });
 
 export const setToken = (token) => {
-  console.log(token);
   api.defaults.headers.common.Authorization = token;
 };
 
