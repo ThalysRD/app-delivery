@@ -23,13 +23,23 @@ export const requestRegister = async (body) => {
   return data;
 };
 
+export const getOrderDetails = async (id) => {
+  const { data } = await api.get(`/orders/${id}`);
+  return data;
+};
+
 export const requestCheckout = async (body) => {
   const { data } = await api.post('/checkout', body);
   return data;
 };
 
-export const requestSeller = async (body) => {
-  const { data } = await api.post('/checkout', body);
+export const requestSeller = async () => {
+  const { data } = await api.get('/register/sellers');
+  return data;
+};
+
+export const orderDelivered = async (id) => {
+  const { data } = await api.post(`/orders/delivered/${id}`);
   return data;
 };
 

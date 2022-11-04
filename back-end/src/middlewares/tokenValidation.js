@@ -6,8 +6,6 @@ const jwtKey = 'jwt.evaluation.key';
 const tokenValidation = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token);
-    console.log(req.headers);
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
@@ -18,5 +16,4 @@ const tokenValidation = async (req, res, next) => {
   }
   next();
 };
-
 module.exports = { tokenValidation };

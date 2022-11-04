@@ -4,7 +4,9 @@ const ordersController = require('../controllers/ordersController');
 
 const ordersRoute = express.Router();
 
-ordersRoute.get('/:id', ordersController.getOrders);
-ordersRoute.get('/details/:id', ordersController.getOrderDetails);
+ordersRoute.get('/', ordersController.getOrders);
+ordersRoute.get('/:id', ordersController.getOrderDetails);
+ordersRoute.post('/delivered/:id', ordersController.orderDelivered);
+
 
 module.exports = ordersRoute;

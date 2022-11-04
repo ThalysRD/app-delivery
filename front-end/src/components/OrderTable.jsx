@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class CheckoutTable extends Component {
+export default class OrderTable extends Component {
   render() {
-    const { id, quantity, describe, unitValue, index, remove } = this.props;
+    const { quantity, describe, unitValue, index } = this.props;
     return (
       <div>
         <div>
           <tr>
             <td
               data-testid={
-                `customer_checkout__element-order-table-item-number-${index}`
+                `customer_order_details__element-order-table-item-number-${index}`
               }
             >
               { index + 1 }
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              data-testid={ `customer_order_details__element-order-table-name-${index}` }
             >
               {describe}
 
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-quantity-${index}`
+                `customer_order_details__element-order-table-quantity-${index}`
               }
             >
               {quantity}
@@ -32,7 +32,7 @@ export default class CheckoutTable extends Component {
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-unit-price-${index}`
+                `customer_order_details__element-order-table-unit-price-${index}`
               }
             >
               { unitValue.replace(/\./, ',') }
@@ -40,20 +40,10 @@ export default class CheckoutTable extends Component {
             </td>
             <td
               data-testid={
-                `customer_checkout__element-order-table-sub-total-${index}`
+                `customer_order_details__element-order-table-sub-total-${index}`
               }
             >
               {`${(+unitValue * +quantity).toFixed(2)}`.replace(/\./, ',')}
-            </td>
-            <td
-              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-            >
-              <button
-                type="submit"
-                onClick={ () => remove(id) }
-              >
-                Remover
-              </button>
             </td>
           </tr>
         </div>
@@ -63,11 +53,9 @@ export default class CheckoutTable extends Component {
   }
 }
 
-CheckoutTable.propTypes = {
-  id: PropTypes.number.isRequired,
+OrderTable.propTypes = {
   index: PropTypes.number.isRequired,
   describe: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
-  unitValue: PropTypes.string.isRequired,
-  remove: PropTypes.func.isRequired,
+  unitValue: PropTypes.number.isRequired,
 };

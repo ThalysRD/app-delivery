@@ -10,4 +10,9 @@ const getOrderDetails = async (req, res) => {
   return res.status(201).json(order);
 };
 
-module.exports = { getOrders, getOrderDetails };
+const orderDelivered = async (req, res) => {
+  const result = await ordersService.orderDelivered(req.params.id);
+  return res.status(200).json( {status: result} );
+};
+
+module.exports = { getOrders, getOrderDetails, orderDelivered };
