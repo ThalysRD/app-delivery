@@ -64,33 +64,32 @@ class OrderProducts extends Component {
   render() {
     const { products, totalPrice, details, sellerName, delivered, date } = this.state;
     const testId = 'customer_order_details__element-order-';
-    console.log(details);
     return (
       <div>
         <header>Detalhe do Pedido</header>
         <span
-          data-testId={ `${testId}details-label-order-id` }
+          data-testid={ `${testId}details-label-order-id` }
         >
           {`Pedido ${details.id}`}
         </span>
         <span
-          data-testId={ `${testId}details-label-seller-name` }
+          data-testid={ `${testId}details-label-seller-name` }
         >
           {`P. Vend: ${sellerName}`}
         </span>
         <span
-          data-testId={ `${testId}details-label-order-date` }
+          data-testid={ `${testId}details-label-order-date` }
         >
           {date}
         </span>
         <span
-          data-testId={ `${testId}details-label-delivery-status1` }
+          data-testid={ `${testId}details-label-delivery-status1` }
         >
           {delivered ? 'Entregue' : 'Pendente'}
         </span>
         <button
           type="button"
-          data-testId="customer_order_details__button-delivery-check"
+          data-testid="customer_order_details__button-delivery-check"
           onClick={ () => this.deliveredCheck(details.id) }
           disabled
         >

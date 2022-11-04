@@ -19,7 +19,6 @@ export default class Register extends Component {
   register = async () => {
     try {
       const { name, email, password, role } = this.state;
-      console.log(name, email, password, role);
       const { token } = await requestRegister({ email, password, name, role });
       setToken(token);
       localStorage.setItem('user', JSON.stringify({ name, email, role, token }));
