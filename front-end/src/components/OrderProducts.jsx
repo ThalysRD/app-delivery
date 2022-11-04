@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { getOrderDetails } from '../services/requests';
+import { getOrderDetails, orderDelivered } from '../services/requests';
 import OrderTable from './OrderTable';
 
 class OrderProducts extends Component {
@@ -58,6 +58,7 @@ class OrderProducts extends Component {
         <button
           type="button"
           data-testId="customer_order_details__button-delivery-check"
+          onClick={ orderDelivered(details.id) }
         >
           Marcar como entregue
         </button>
@@ -84,7 +85,7 @@ class OrderProducts extends Component {
           </tbody>
         </table>
         <span
-          data-sellerNameid="customer_order_details__element-order-total-price"
+          data-testid="customer_order_details__element-order-total-price"
         >
           {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
         </span>
