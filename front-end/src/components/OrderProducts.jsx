@@ -36,12 +36,11 @@ class OrderProducts extends Component {
 
   deliveredCheck = async (id) => {
     try {
-      const { status } = await orderDelivered(id);
-      if (status === 'Entregue') {
-        this.setState({
-          delivered: true,
-        });
-      }
+      await orderDelivered(id);
+      this.setState({
+        delivered: true,
+        details: 'Entregue',
+      });
     } catch (error) {
       console.log(error);
     }
@@ -66,18 +65,18 @@ class OrderProducts extends Component {
         <span
           data-testid={ `${testId}details-label-order-date` }
         >
-          {details.saleDate}
+          { new Date(details.saleDate).toLocaleDateString()}
         </span>
         <span
           data-testid={ `${testId}details-label-delivery-status1` }
         >
-          {details.status}
+          {delivered ? 'Entregue' : 'Pendente'}
         </span>
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => this.deliveredCheck(details.id) }
-          disabled={ delivered }
+          disabled
         >
           Marcar como entregue
         </button>
