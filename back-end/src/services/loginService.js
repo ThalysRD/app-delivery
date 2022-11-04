@@ -26,4 +26,9 @@ const userLogin = async (email, password) => {
   };
 };
 
-module.exports = { userLogin };
+const loginValidate = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  return user.role;
+};
+
+module.exports = { userLogin, loginValidate };

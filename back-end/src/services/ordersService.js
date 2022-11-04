@@ -27,8 +27,7 @@ const orderDelivered = async (orderId) => {
   }, {
     where: { id: orderId },
   });
-  if(order === 1)
-  return "Entregue"
+  if (order === 1) { return 'Entregue'; }
 };
 
 module.exports = { getOrders, getOrderDetails, orderDelivered };
