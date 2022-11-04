@@ -18,7 +18,9 @@ export default class LoginCard extends Component {
 
   componentDidMount() {
     const data = JSON.parse(localStorage.getItem('user'));
-    this.validateLogin(data.token);
+    if (data) {
+      this.validateLogin(data.token);
+    }
   }
 
   validateLogin = async (token) => {
