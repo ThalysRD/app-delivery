@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class OrderCard extends Component {
+export default class SellerOrderCard extends Component {
   render() {
     const { order } = this.props;
 
@@ -33,7 +33,7 @@ export default class OrderCard extends Component {
   }
 }
 
-OrderCard.propTypes = {
+SellerOrderCard.propTypes = {
   order: PropTypes.shape({
     deliveryAddress: PropTypes.string.isRequired,
     deliveryNumber: PropTypes.string.isRequired,
