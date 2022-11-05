@@ -25,7 +25,7 @@ export default class SellerOrderCard extends Component {
         <div
           data-testid={ `seller_orders__element-card-price-${order.id}` }
         >
-          { order.totalPrice.replace(/\./, ',') }
+          { order.totalPrice }
         </div>
         <div
           data-testid={ `seller_orders__element-card-address-${order.id}` }
