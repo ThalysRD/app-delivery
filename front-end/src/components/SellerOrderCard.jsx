@@ -8,24 +8,29 @@ export default class SellerOrderCard extends Component {
     return (
       <div>
         <div
-          data-testid={ `customer_orders__element-order-id-${order.id}` }
+          data-testid={ `seller_orders__element-order-id-${order.id}` }
         >
           { order.id }
         </div>
         <div
-          data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+          data-testid={ `seller_orders__element-delivery-status-${order.id}` }
         >
           { order.status }
         </div>
         <div
-          data-testid={ `customer_orders__element-order-date-${order.id}` }
+          data-testid={ `seller_orders__element-order-date-${order.id}` }
         >
           { new Date(order.saleDate).toLocaleDateString()}
         </div>
         <div
-          data-testid={ `customer_orders__element-card-price-${order.id}` }
+          data-testid={ `seller_orders__element-card-price-${order.id}` }
         >
           { order.totalPrice.replace(/\./, ',') }
+        </div>
+        <div
+          data-testid={ `seller_orders__element-card-address-${order.id}` }
+        >
+          { `${order.deliveryAddress}, ${order.deliveryNumber}` }
         </div>
         <br />
       </div>
