@@ -41,7 +41,7 @@ export default class CheckoutDetails extends Component {
         products },
     );
     history.push(`/customer/orders/${sale}`);
-    localStorage.set('carShop', JSON.stringify([]));
+    localStorage.setItem('carShop', JSON.stringify([]));
   };
 
   address = ({ target }) => {
