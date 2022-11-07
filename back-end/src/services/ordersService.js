@@ -1,9 +1,9 @@
 require('dotenv').config();
 const { Sale, SaleProduct, Product, User } = require('../database/models');
 
-const getOrders = async (userId) => {
-  const orders = await Sale.findAll({ where: { userId } });
-  return orders;
+const getOrders = async (id, seller = false) => {
+  if (seller) { return Sale.findAll({ where: { sellerId: id } }); }
+  return Sale.findAll({ where: { userId: id } }); 
 };
 
 const getOrderDetails = async (saleId) => {
