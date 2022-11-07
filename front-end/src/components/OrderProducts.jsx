@@ -65,7 +65,7 @@ class OrderProducts extends Component {
         <span
           data-testid={ `${testId}details-label-order-date` }
         >
-          { new Date(details.saleDate).toLocaleDateString()}
+          { new Date(details.saleDate).toLocaleDateString('pt-br')}
         </span>
         <span
           data-testid={ `${testId}details-label-delivery-status1` }
