@@ -54,4 +54,32 @@ export const loginValidate = async () => {
   return data;
 };
 
+export const requestSellerOrders = async (body) => {
+  const { sellerId } = body;
+  console.log(sellerId);
+
+  return [
+    {
+      deliveryAddress: 'endereço',
+      deliveryNumber: '9',
+      id: 1,
+      saleDate: new Date('1995-11-17T03:24:00'),
+      sellerId: 2,
+      status: 'Pendente',
+      totalPrice: 25.00,
+      userId: 3,
+    },
+    {
+      deliveryAddress: 'endereço-bolado',
+      deliveryNumber: '543',
+      id: 2,
+      saleDate: new Date('1995-12-17T03:24:00'),
+      sellerId: 2,
+      status: 'Pendente',
+      totalPrice: 25.00,
+      userId: 3,
+    },
+  ];
+};
+
 export default api;
