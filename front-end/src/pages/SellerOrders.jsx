@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+import SellerNavBar from '../components/SellerNavBar';
 import SellerOrderCard from '../components/SellerOrderCard';
 import { requestSellerOrders } from '../services/requests';
 
@@ -31,7 +31,7 @@ export default class SellerOrders extends Component {
 
     return (
       <div>
-        <NavBar history={ history } />
+        <SellerNavBar history={ history } />
         {
           sellerOrders.map(
             (order) => (

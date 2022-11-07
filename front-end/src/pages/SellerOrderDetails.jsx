@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NavBar from '../components/NavBar';
+import SellerNavBar from '../components/SellerNavBar';
 import SellerDetails from '../components/SellerDetails';
+import { getOrderDetails } from '../services/requests';
 
 export default class SellerOrderDetails extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class SellerOrderDetails extends Component {
 
     return (
       <section>
-        <NavBar history={ history } />
+        <SellerNavBar history={ history } />
         <SellerDetails
           orderProducts={ orderProducts }
           orderDetails={ orderDetails }
@@ -42,15 +43,11 @@ export default class SellerOrderDetails extends Component {
 SellerOrderDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }),
+  }).isRequired,
 
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
-};
-
-SellerOrderDetails.defaultProps = {
-  history: PropTypes.push,
 };
