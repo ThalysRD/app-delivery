@@ -21,13 +21,13 @@ const getOrderDetails = async (saleId) => {
   return { orderDetails, orderProducts };
 };
 
-const orderDelivered = async (orderId) => {
+const orderStatusUpdate = async (orderId, status) => {
  const [order] = await Sale.update({
-    status: 'Entregue',
+    status,
   }, {
     where: { id: orderId },
   });
-  if (order === 1) return 'Entregue';
+  if (order === 1) return status;
 };
 
-module.exports = { getOrders, getOrderDetails, orderDelivered };
+module.exports = { getOrders, getOrderDetails, orderStatusUpdate };

@@ -16,8 +16,25 @@ const getOrderDetails = async (req, res) => {
 };
 
 const orderDelivered = async (req, res) => {
-  const result = await ordersService.orderDelivered(req.params.id);
+  const result = await ordersService.orderStatusUpdate(req.params.id, 'Entregue');
   return res.status(200).json({ status: result });
 };
 
-module.exports = { getOrders, getOrderDetails, orderDelivered, getOrdersSeller };
+const orderPreparing = async (req, res) => {
+  const result = await ordersService.orderStatusUpdate(req.params.id, 'Preparando');
+  return res.status(200).json({ status: result });
+};
+
+const orderOnTheWay = async (req, res) => {
+  const result = await ordersService.orderStatusUpdate(req.params.id, 'Em Trânsito');
+  return res.status(200).json({ status: result });
+};
+
+module.exports = { 
+  getOrders, 
+  getOrderDetails,
+  orderDelivered,
+  getOrdersSeller,
+  orderPreparing,
+  orderOnTheWay, 
+};
