@@ -20,7 +20,7 @@ export default class SellerOrderCard extends Component {
         <div
           data-testid={ `seller_orders__element-order-date-${order.id}` }
         >
-          { new Date(order.saleDate).toLocaleDateString()}
+          { new Date(order.saleDate).toLocaleDateString('pt-br')}
         </div>
         <div
           data-testid={ `seller_orders__element-card-price-${order.id}` }

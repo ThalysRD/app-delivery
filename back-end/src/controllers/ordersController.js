@@ -2,17 +2,17 @@ const ordersService = require('../services/ordersService');
 
 const getOrders = async (req, res) => {
   const orders = await ordersService.getOrders(Number(req.params.id));
-  return res.status(201).json(orders);
+  return res.status(200).json(orders);
 };
 
 const getOrdersSeller = async (req, res) => {
   const orders = await ordersService.getOrders(Number(req.params.id), true);
-  return res.status(201).json(orders);
+  return res.status(200).json(orders);
 };
 
 const getOrderDetails = async (req, res) => {
   const order = await ordersService.getOrderDetails(req.params.id);
-  return res.status(201).json(order);
+  return res.status(200).json(order);
 };
 
 const orderDelivered = async (req, res) => {

@@ -60,4 +60,14 @@ export const requestSellerOrders = async (body) => {
   return data;
 };
 
+export const preparingOrder = async (body) => {
+  const { data } = await api.get(`/orders/preparing/${body}`);
+  return data;
+};
+
+export const onTheWayOrder = async (body) => {
+  const { data } = await api.get(`/orders/ontheway/${body}`);
+  return data;
+};
+
 export default api;

@@ -1,11 +1,85 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SellerDetailsCard from './SellerDetailsCard';
+import { preparingOrder, getOrderDetails, onTheWayOrder } from '../services/requests';
 
 export default class SellerDetails extends Component {
-  render() {
-    const { orderProducts, orderDetails } = this.props;
+  constructor() {
+    super();
 
+    this.state = {
+      notPreparing: true,
+      status: '',
+      orderProducts: [],
+      orderDetails: [],
+      onTheWay: false,
+    };
+  }
+
+  async componentDidMount() {
+    const { match } = this.props;
+    const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
+    if (orderDetails.status === 'Preparando') {
+      this.setState({
+        notPreparing: false,
+        onTheWay: false,
+      });
+    }
+    if (orderDetails.status === 'Em Trânsito') {
+      this.setState({
+        notPreparing: false,
+        onTheWay: true,
+      });
+    }
+    if (orderDetails.status === 'Entregue') {
+      this.setState({
+        onTheWay: false,
+        notPreparing: false,
+      });
+    }
+    this.setState({
+      status: orderDetails.status,
+    });
+
+    this.setState({
+      orderProducts,
+      orderDetails,
+    });
+  }
+
+  preparing = async () => {
+    try {
+      const { match } = this.props;
+      await preparingOrder(match.params.id);
+      const { orderDetails } = await getOrderDetails(match.params.id);
+      this.setState({
+        notPreparing: false,
+        status: orderDetails.status,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onTheWay = async () => {
+    try {
+      const { match } = this.props;
+      await onTheWayOrder(match.params.id);
+      const { orderDetails } = await getOrderDetails(match.params.id);
+      this.setState({
+        onTheWay: true,
+        status: orderDetails.status,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  render() {
+    const { notPreparing, status, orderProducts, orderDetails, onTheWay } = this.state;
+    const testId = 'seller_order_details__element-order-details-label-delivery-status';
+    console.log(notPreparing);
+    console.log(onTheWay);
     return (
       <section>
         Detalhe do Pedido
@@ -21,25 +95,26 @@ export default class SellerDetails extends Component {
             { `${new Date(orderDetails.saleDate).toLocaleDateString('pt-br')} ---- ` }
           </span>
           <span
-            data-testid={ `seller_order_details__element-
-            order-details-label-delivery-status` }
+            data-testid={ testId }
           >
-            { `${orderDetails.status} ---- ` }
+            { status }
           </span>
-          <span
-            data-testid="seller_order_details__button-preparing-check"
-          >
+          <span>
             <button
+              data-testid="seller_order_details__button-preparing-check"
               type="button"
+              onClick={ this.preparing }
+              disabled={ !notPreparing }
             >
               Preparar Pedido
             </button>
           </span>
-          <span
-            data-testid="seller_order_details__button-dispatch-check"
-          >
+          <span>
             <button
+              data-testid="seller_order_details__button-dispatch-check"
               type="button"
+              disabled={ notPreparing || onTheWay }
+              onClick={ this.onTheWay }
             >
               Saiu pra Entrega
             </button>
@@ -59,7 +134,7 @@ export default class SellerDetails extends Component {
         }
         <br />
         <br />
-        <div>
+        <div data-testid="seller_order_details__element-order-total-price">
           Total:
           {
             ((orderProducts.reduce((acc, orderProduct) => (
@@ -73,33 +148,9 @@ export default class SellerDetails extends Component {
 }
 
 SellerDetails.propTypes = {
-  orderDetails: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userId: PropTypes.number.isRequired,
-    sellerId: PropTypes.number.isRequired,
-    totalPrice: PropTypes.string.isRequired,
-    deliveryAddress: PropTypes.string.isRequired,
-    deliveryNumber: PropTypes.string.isRequired,
-    saleDate: PropTypes.instanceOf(Date).isRequired,
-    status: PropTypes.string.isRequired,
-    User: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-      role: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-
-  orderProducts: PropTypes.arrayOf(PropTypes.shape({
-    saleId: PropTypes.number.isRequired,
-    productId: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    Product: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      url_image: PropTypes.string.isRequired,
-    }).isRequired,
-  })).isRequired,
 };
