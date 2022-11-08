@@ -1,10 +1,71 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SellerDetailsCard from './SellerDetailsCard';
+import { preparingOrder, getOrderDetails, onTheWayOrder } from '../services/requests';
 
 export default class SellerDetails extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      notPreparing: true,
+      status: '',
+      orderProducts: [],
+      orderDetails: [],
+      onTheWay: false,
+    };
+  }
+
+  async componentDidMount() {
+    const { match } = this.props;
+    const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
+    if (orderDetails.status === 'Preparando' || orderDetails.status === 'Em Trânsito') {
+      this.setState({
+        notPreparing: false,
+        onTheWay: true,
+      });
+    }
+    this.setState({
+      status: orderDetails.status,
+    });
+
+    this.setState({
+      orderProducts,
+      orderDetails,
+    });
+  }
+
+  preparing = async () => {
+    try {
+      const { match } = this.props;
+      await preparingOrder(match.params.id);
+      const { orderDetails } = await getOrderDetails(match.params.id);
+      this.setState({
+        notPreparing: false,
+        status: orderDetails.status,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  onTheWay = async () => {
+    try {
+      const { match } = this.props;
+      await onTheWayOrder(match.params.id);
+      const { orderDetails } = await getOrderDetails(match.params.id);
+      this.setState({
+        onTheWay: true,
+        status: orderDetails.status,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
-    const { orderProducts, orderDetails } = this.props;
+    const { notPreparing, status, orderProducts, orderDetails, onTheWay } = this.state;
+    console.log(orderDetails);
     const testId = 'seller_order_details__element-order-details-label-delivery-status';
 
     return (
@@ -24,12 +85,14 @@ export default class SellerDetails extends Component {
           <span
             data-testid={ testId }
           >
-            { orderDetails.status }
+            { status }
           </span>
           <span>
             <button
               data-testid="seller_order_details__button-preparing-check"
               type="button"
+              onClick={ this.preparing }
+              disabled={ !notPreparing }
             >
               Preparar Pedido
             </button>
@@ -38,7 +101,8 @@ export default class SellerDetails extends Component {
             <button
               data-testid="seller_order_details__button-dispatch-check"
               type="button"
-              disabled="true"
+              disabled={ notPreparing || onTheWay }
+              onClick={ this.onTheWay }
             >
               Saiu pra Entrega
             </button>
@@ -72,33 +136,9 @@ export default class SellerDetails extends Component {
 }
 
 SellerDetails.propTypes = {
-  orderDetails: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userId: PropTypes.number.isRequired,
-    sellerId: PropTypes.number.isRequired,
-    totalPrice: PropTypes.string.isRequired,
-    deliveryAddress: PropTypes.string.isRequired,
-    deliveryNumber: PropTypes.string.isRequired,
-    saleDate: PropTypes.instanceOf(Date).isRequired,
-    status: PropTypes.string.isRequired,
-    User: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-      role: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-
-  orderProducts: PropTypes.arrayOf(PropTypes.shape({
-    saleId: PropTypes.number.isRequired,
-    productId: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    Product: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      url_image: PropTypes.string.isRequired,
-    }).isRequired,
-  })).isRequired,
 };
