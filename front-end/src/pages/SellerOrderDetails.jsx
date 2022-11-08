@@ -1,15 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NavBar from '../components/NavBar';
+import SellerNavBar from '../components/SellerNavBar';
 import SellerDetails from '../components/SellerDetails';
+import { getOrderDetails } from '../services/requests';
 
 export default class SellerOrderDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      orderProducts: [],
+      orderDetails: {},
+    };
+  }
+
+  async componentDidMount() {
+    const { match } = this.props;
+    const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
+
+    this.setState({
+      orderProducts,
+      orderDetails,
+    });
+  }
+
   render() {
     const { history } = this.props;
+    const { orderProducts, orderDetails } = this.state;
+
     return (
       <section>
-        <NavBar history={ history } />
-        <SellerDetails />
+        <SellerNavBar history={ history } />
+        <SellerDetails
+          orderProducts={ orderProducts }
+          orderDetails={ orderDetails }
+        />
       </section>
     );
   }
@@ -18,9 +43,11 @@ export default class SellerOrderDetails extends Component {
 SellerOrderDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
-  }),
-};
+  }).isRequired,
 
-SellerOrderDetails.defaultProps = {
-  history: PropTypes.push,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
 };
