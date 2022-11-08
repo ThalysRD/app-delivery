@@ -19,10 +19,22 @@ export default class SellerDetails extends Component {
   async componentDidMount() {
     const { match } = this.props;
     const { orderDetails, orderProducts } = await getOrderDetails(match.params.id);
-    if (orderDetails.status === 'Preparando' || orderDetails.status === 'Em Trânsito') {
+    if (orderDetails.status === 'Preparando') {
+      this.setState({
+        notPreparing: false,
+        onTheWay: false,
+      });
+    }
+    if (orderDetails.status === 'Em Trânsito') {
       this.setState({
         notPreparing: false,
         onTheWay: true,
+      });
+    }
+    if (orderDetails.status === 'Entregue') {
+      this.setState({
+        onTheWay: false,
+        notPreparing: false,
       });
     }
     this.setState({
@@ -65,9 +77,9 @@ export default class SellerDetails extends Component {
 
   render() {
     const { notPreparing, status, orderProducts, orderDetails, onTheWay } = this.state;
-    console.log(orderDetails);
     const testId = 'seller_order_details__element-order-details-label-delivery-status';
-
+    console.log(notPreparing);
+    console.log(onTheWay);
     return (
       <section>
         Detalhe do Pedido
