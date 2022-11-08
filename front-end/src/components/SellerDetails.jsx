@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SellerDetailsCard from './SellerDetailsCard';
 
 export default class SellerDetails extends Component {
   render() {
@@ -44,17 +45,28 @@ export default class SellerDetails extends Component {
             </button>
           </span>
         </div>
+        <br />
         {
           orderProducts.map(
-            (orderProduct) => (
-              <div
-                key={ orderProduct.saleId }
-              >
-                { orderProduct.saleId }
-              </div>
+            (orderProduct, index) => (
+              <SellerDetailsCard
+                key={ index }
+                position={ index }
+                orderProduct={ orderProduct }
+              />
             ),
           )
         }
+        <br />
+        <br />
+        <div>
+          Total:
+          {
+            ((orderProducts.reduce((acc, orderProduct) => (
+              acc + (orderProduct.quantity * +orderProduct.Product.price)
+            ), 0)).toFixed(2)).replace(/\./, ',')
+          }
+        </div>
       </section>
     );
   }

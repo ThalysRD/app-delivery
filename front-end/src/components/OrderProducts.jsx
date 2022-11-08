@@ -113,7 +113,11 @@ class OrderProducts extends Component {
 }
 
 OrderProducts.propTypes = {
-  match: PropTypes.number.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 const OrderProductsWithRouter = withRouter(OrderProducts);

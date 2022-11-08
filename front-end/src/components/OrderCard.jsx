@@ -38,10 +38,10 @@ OrderCard.propTypes = {
     deliveryAddress: PropTypes.string.isRequired,
     deliveryNumber: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    saleDate: PropTypes.PropTypes.instanceOf(Date).isRequired,
+    saleDate: PropTypes.string.isRequired,
     sellerId: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    totalPrice: PropTypes.number.isRequired,
+    totalPrice: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
   }).isRequired,
 };
