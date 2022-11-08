@@ -5,6 +5,7 @@ import SellerDetailsCard from './SellerDetailsCard';
 export default class SellerDetails extends Component {
   render() {
     const { orderProducts, orderDetails } = this.props;
+    const testId = 'seller_order_details__element-order-details-label-delivery-status';
 
     return (
       <section>
@@ -21,25 +22,23 @@ export default class SellerDetails extends Component {
             { `${new Date(orderDetails.saleDate).toLocaleDateString('pt-br')} ---- ` }
           </span>
           <span
-            data-testid={ `seller_order_details__element-
-            order-details-label-delivery-status` }
+            data-testid={ testId }
           >
-            { `${orderDetails.status} ---- ` }
+            { orderDetails.status }
           </span>
-          <span
-            data-testid="seller_order_details__button-preparing-check"
-          >
+          <span>
             <button
+              data-testid="seller_order_details__button-preparing-check"
               type="button"
             >
               Preparar Pedido
             </button>
           </span>
-          <span
-            data-testid="seller_order_details__button-dispatch-check"
-          >
+          <span>
             <button
+              data-testid="seller_order_details__button-dispatch-check"
               type="button"
+              disabled="true"
             >
               Saiu pra Entrega
             </button>
@@ -59,7 +58,7 @@ export default class SellerDetails extends Component {
         }
         <br />
         <br />
-        <div>
+        <div data-testid="seller_order_details__element-order-total-price">
           Total:
           {
             ((orderProducts.reduce((acc, orderProduct) => (
