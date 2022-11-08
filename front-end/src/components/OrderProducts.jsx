@@ -12,7 +12,7 @@ class OrderProducts extends Component {
       totalPrice: 0,
       details: {},
       sellerName: false,
-      delivered: false,
+      status: '',
     };
   }
 
@@ -26,20 +26,17 @@ class OrderProducts extends Component {
       details: orderDetails,
       products: orderProducts,
       sellerName: orderDetails.User.name,
+      status: orderDetails.status,
     });
-    if (orderDetails.status === 'Entregue') {
-      this.setState({
-        delivered: true,
-      });
-    }
   }
 
-  deliveredCheck = async (id) => {
+  deliveredCheck = async () => {
     try {
-      await orderDelivered(id);
+      const { match } = this.props;
+      await orderDelivered(match.params.id);
+      const { orderDetails } = await getOrderDetails(match.params.id);
       this.setState({
-        delivered: true,
-        details: 'Entregue',
+        status: orderDetails.status,
       });
     } catch (error) {
       console.log(error);
@@ -47,7 +44,7 @@ class OrderProducts extends Component {
   };
 
   render() {
-    const { products, totalPrice, details, sellerName, delivered } = this.state;
+    const { products, totalPrice, details, sellerName, status } = this.state;
     const testId = 'customer_order_details__element-order-';
     return (
       <div>
@@ -68,15 +65,15 @@ class OrderProducts extends Component {
           { new Date(details.saleDate).toLocaleDateString()}
         </span>
         <span
-          data-testid={ `${testId}details-label-delivery-status1` }
+          data-testid={ `${testId}details-label-delivery-status` }
         >
-          {delivered ? 'Entregue' : 'Pendente'}
+          { status }
         </span>
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          onClick={ () => this.deliveredCheck(details.id) }
-          disabled
+          onClick={ () => this.deliveredCheck() }
+          disabled={ status === 'Entregue' || status === 'Pendente' }
         >
           Marcar como entregue
         </button>

@@ -39,7 +39,7 @@ export const requestSeller = async () => {
 };
 
 export const orderDelivered = async (id) => {
-  const { data } = await api.post(`/orders/delivered/${id}`);
+  const { data } = await api.get(`/orders/delivered/${id}`);
   return data;
 };
 
