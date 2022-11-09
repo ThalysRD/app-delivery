@@ -73,7 +73,7 @@ class OrderProducts extends Component {
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => this.deliveredCheck() }
-          disabled={ status === 'Entregue' || status === 'Pendente' }
+          disabled={ status !== 'Em Trânsito' }
         >
           Marcar como entregue
         </button>

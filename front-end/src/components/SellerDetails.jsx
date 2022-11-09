@@ -13,6 +13,7 @@ export default class SellerDetails extends Component {
       orderProducts: [],
       orderDetails: [],
       onTheWay: false,
+      delivered: false,
     };
   }
 
@@ -35,6 +36,7 @@ export default class SellerDetails extends Component {
       this.setState({
         onTheWay: false,
         notPreparing: false,
+        delivered: true,
       });
     }
     this.setState({
@@ -76,7 +78,13 @@ export default class SellerDetails extends Component {
   };
 
   render() {
-    const { notPreparing, status, orderProducts, orderDetails, onTheWay } = this.state;
+    const {
+      notPreparing,
+      status,
+      orderProducts,
+      orderDetails,
+      onTheWay,
+      delivered } = this.state;
     const testId = 'seller_order_details__element-order-details-label-delivery-status';
     console.log(notPreparing);
     console.log(onTheWay);
@@ -113,7 +121,7 @@ export default class SellerDetails extends Component {
             <button
               data-testid="seller_order_details__button-dispatch-check"
               type="button"
-              disabled={ notPreparing || onTheWay }
+              disabled={ notPreparing || onTheWay || delivered }
               onClick={ this.onTheWay }
             >
               Saiu pra Entrega
