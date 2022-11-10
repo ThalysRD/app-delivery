@@ -64,7 +64,7 @@ export default class NavBar extends Component {
             </button>
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav">
-                <il className="nav-item">
+                <li className="nav-item">
                   <button
                     type="button"
                     data-testid="customer_products__element-navbar-link-products"
@@ -73,8 +73,8 @@ export default class NavBar extends Component {
                   >
                     Produtos
                   </button>
-                </il>
-                <il className="nav-item">
+                </li>
+                <li className="nav-item">
                   <button
                     type="button"
                     data-testid="customer_products__element-navbar-link-orders"
@@ -83,8 +83,8 @@ export default class NavBar extends Component {
                   >
                     Meus Pedidos
                   </button>
-                </il>
-                <il className="nav-item">
+                </li>
+                <li className="nav-item">
                   <button
                     type="button"
                     data-testid="customer_products__element-navbar-user-full-name"
@@ -92,8 +92,8 @@ export default class NavBar extends Component {
                   >
                     { username }
                   </button>
-                </il>
-                <il className="nav-item">
+                </li>
+                <li className="nav-item">
                   <button
                     type="button"
                     onClick={ this.redirectToLogin }
@@ -102,7 +102,7 @@ export default class NavBar extends Component {
                   >
                     Sair
                   </button>
-                </il>
+                </li>
               </ul>
             </div>
           </div>

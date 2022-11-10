@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -107,42 +108,62 @@ export default class ProductCard extends Component {
     const { product, index } = this.props;
     const { quantity } = this.state;
     return (
-      <div>
-        <div data-testid={ `customer_products__element-card-title-${index}` }>
-          { product.name }
-        </div>
-        <div data-testid={ `customer_products__element-card-price-${index}` }>
-          { JSON.stringify(product.price).replace(/\./, ',') }
-        </div>
+      <div className="card" style={ { width: '18rem' } }>
         <img
           src={ product.url_image }
           alt="produto"
           data-testid={ `customer_products__img-card-bg-image-${index}` }
+          className="img-fluid card-img-top"
+          style={
+            { width: '300px', height: '300px' }
+          }
         />
-        <div>
-          <button
-            type="button"
-            onClick={ this.subtractQuantity }
-            data-testid={ `customer_products__button-card-rm-item-${index}` }
+        <div className="card-body">
+          <h4
+            data-testid={ `customer_products__element-card-title-${index}` }
+            className="card-title"
           >
-            -
-          </button>
-          <input
-            type="number"
-            value={ quantity }
-            name="quantity"
-            onChange={ this.handleChange }
-            data-testid={ `customer_products__input-card-quantity-${index}` }
-          />
-          <button
-            type="button"
-            onClick={ this.addQuantity }
-            data-testid={ `customer_products__button-card-add-item-${index}` }
+            { product.name }
+          </h4>
+          <h5
+            data-testid={ `customer_products__element-card-price-${index}` }
+            className="card-subtitle mb-2 text-muted"
           >
-            +
-          </button>
+            { (product.price).replace(/\./, ',') }
+          </h5>
+          <div className="container">
+            <div className="row justify-content-between">
+              <div className="col-auto">
+                <button
+                  type="button"
+                  onClick={ this.subtractQuantity }
+                  data-testid={ `customer_products__button-card-rm-item-${index}` }
+                >
+                  -
+                </button>
+              </div>
+              <div className="col">
+                <input
+                  type="number"
+                  value={ quantity }
+                  name="quantity"
+                  onChange={ this.handleChange }
+                  data-testid={ `customer_products__input-card-quantity-${index}` }
+                  className="w-100"
+                />
+              </div>
+              <div className="col-auto">
+                <button
+                  type="button"
+                  onClick={ this.addQuantity }
+                  data-testid={ `customer_products__button-card-add-item-${index}` }
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <br />
       </div>
     );
   }
