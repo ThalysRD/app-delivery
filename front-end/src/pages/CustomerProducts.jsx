@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { getProducts } from '../services/requests';
 
 import NavBar from '../components/NavBar';
@@ -57,33 +59,67 @@ export default class CustomerProducts extends Component {
   render() {
     const { history } = this.props;
     const { products, totalPrice, carDisabled } = this.state;
+    const separatedCards = 3;
     return (
-      <div>
-        <NavBar
-          history={ history }
-        />
-        {
-          products.map((product) => (
-            <ProductCard
-              key={ product.id }
-              product={ product }
-              index={ product.id }
-              getTotalPrice={ this.getTotalPrice }
-            />
-          ))
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")' }
         }
-        <button
-          type="button"
-          onClick={ this.redirectToCheckout }
-          disabled={ carDisabled }
-          data-testid="customer_products__button-cart"
-        >
-          carrinho:
-          <div data-testid="customer_products__checkout-bottom-value">
-            { totalPrice.toFixed(2).replace(/\./, ',') }
+      >
+        <div>
+          <NavBar
+            history={ history }
+          />
+          <div className="container mt-3 mb-3">
+            {
+              console.log(_.chunk(products, separatedCards))
+            }
+            {
+              (_.chunk(products, separatedCards)).map((productGroup, index) => (
+                <div
+                  className="row justify-content-around  mb-4"
+                  key={ index }
+                >
+                  {
+                    productGroup.map((product) => (
+                      <ProductCard
+                        key={ product.id }
+                        product={ product }
+                        index={ product.id }
+                        getTotalPrice={ this.getTotalPrice }
+                      />
+                    ))
+                  }
+                </div>
+              ))
+              // products.map((product) => (
+              //   <ProductCard
+              //     key={ product.id }
+              //     product={ product }
+              //     index={ product.id }
+              //     getTotalPrice={ this.getTotalPrice }
+              //   />
+              // ))
+            }
+            <div className="row justify-content-center">
+              <div className="col-auto">
+                <button
+                  type="button"
+                  onClick={ this.redirectToCheckout }
+                  disabled={ carDisabled }
+                  data-testid="customer_products__button-cart"
+                  className="btn btn-secondary"
+                >
+                  carrinho:
+                  <span data-testid="customer_products__checkout-bottom-value">
+                    { `   ${totalPrice.toFixed(2).replace(/\./, ',')}` }
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
-        </button>
-      </div>
+        </div>
+      </main>
     );
   }
 }

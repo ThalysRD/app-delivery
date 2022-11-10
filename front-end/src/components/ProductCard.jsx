@@ -108,7 +108,10 @@ export default class ProductCard extends Component {
     const { product, index } = this.props;
     const { quantity } = this.state;
     return (
-      <div className="card" style={ { width: '18rem' } }>
+      <div
+        className="card col-auto"
+        style={ { width: '18rem' } }
+      >
         <img
           src={ product.url_image }
           alt="produto"
