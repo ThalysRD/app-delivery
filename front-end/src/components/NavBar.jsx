@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -47,33 +48,65 @@ export default class NavBar extends Component {
 
     return (
       <header>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-products"
-          onClick={ this.redirectToProducts }
-        >
-          Produtos
-        </button>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-link-orders"
-          onClick={ this.redirectToOrders }
-        >
-          Meus Pedidos
-        </button>
-        <button
-          type="button"
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { username }
-        </button>
-        <button
-          type="button"
-          onClick={ this.redirectToLogin }
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Sair
-        </button>
+        <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+          <div className="container-fluid">
+            <div className="navbar-brand" href="#">Drinks</div>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div className="collapse navbar-collapse">
+              <ul className="navbar-nav">
+                <il className="nav-item">
+                  <button
+                    type="button"
+                    data-testid="customer_products__element-navbar-link-products"
+                    onClick={ this.redirectToProducts }
+                    className="btn btn-primary"
+                  >
+                    Produtos
+                  </button>
+                </il>
+                <il className="nav-item">
+                  <button
+                    type="button"
+                    data-testid="customer_products__element-navbar-link-orders"
+                    onClick={ this.redirectToOrders }
+                    className="btn btn-primary"
+                  >
+                    Meus Pedidos
+                  </button>
+                </il>
+                <il className="nav-item">
+                  <button
+                    type="button"
+                    data-testid="customer_products__element-navbar-user-full-name"
+                    className="btn btn-primary"
+                  >
+                    { username }
+                  </button>
+                </il>
+                <il className="nav-item">
+                  <button
+                    type="button"
+                    onClick={ this.redirectToLogin }
+                    data-testid="customer_products__element-navbar-link-logout"
+                    className="btn btn-primary"
+                  >
+                    Sair
+                  </button>
+                </il>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </header>
     );
   }

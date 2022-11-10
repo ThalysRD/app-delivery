@@ -6,9 +6,19 @@ export default class Login extends Component {
   render() {
     const { history } = this.props;
     return (
-      <section>
-        <LoginCard history={ history } />
-      </section>
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/POZLjOU.jpg")', backgroundSize: 'cover' }
+        }
+      >
+        <div className="container">
+          <div className="row justify-content-center align-items-center vh-100">
+            <div className="col-auto">
+              <LoginCard history={ history } />
+            </div>
+          </div>
+        </div>
+      </main>
     );
   }
 }

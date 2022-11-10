@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -91,63 +92,90 @@ export default class LoginCard extends Component {
       if (role === 'administrator') history.push('/admin/manage');
     }
     return (
-      <section>
-        <form>
-          <div>
-            <label htmlFor="input-email">
-              Email:
-              <input
-                id="input-email"
-                type="email"
-                data-testid="common_login__input-email"
-                onChange={ this.checkEmail }
-                name="email"
-                value={ email }
-              />
-            </label>
-            <br />
-            <label htmlFor="input-password">
-              Password:
-              <input
-                id="input-password"
-                type="password"
-                data-testid="common_login__input-password"
-                onChange={ this.checkPassword }
-                name="password"
-                value={ password }
-              />
-            </label>
+      <section
+        style={
+          { backgroundColor: 'rgba(0,0,0,0.5)' }
+        }
+        className="container p-3"
+      >
+        <div className="row">
+          <div className="col">
+            <form className="container">
+              <div className="row justify-content-center m-2 text-center">
+                <div className="col">
+                  Login
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  <label htmlFor="input-email">
+                    <input
+                      id="input-email"
+                      type="email"
+                      data-testid="common_login__input-email"
+                      onChange={ this.checkEmail }
+                      name="email"
+                      value={ email }
+                      placeholder="Email"
+                      className="form-control"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  <label htmlFor="input-password">
+                    <input
+                      id="input-password"
+                      type="password"
+                      data-testid="common_login__input-password"
+                      onChange={ this.checkPassword }
+                      name="password"
+                      value={ password }
+                      placeholder="Password"
+                      className="form-control"
+                    />
+                  </label>
+                </div>
+              </div>
+              {
+                (failedLogin)
+                  ? (
+                    <p data-testid="common_login__element-invalid-email">
+                      {
+                        `O endereço de e-mail ou a senha inválidos.
+                        Por favor, insira os dados novamente.`
+                      }
+                    </p>
+                  )
+                  : null
+              }
+              <div className="row m-2">
+                <div className="col d-grid">
+                  <div className="btn-group" role="group">
+                    <button
+                      data-testid="common_login__button-login"
+                      type="button"
+                      disabled={ this.checkLogin() }
+                      onClick={ (event) => this.login(event) }
+                      className="btn btn-primary bg-gradient w-50"
+                    >
+                      Login
+                    </button>
+                    <button
+                      data-testid="common_login__button-register"
+                      type="button"
+                      onClick={ () => this.register() }
+                      className="btn btn-primary bg-gradient w-50"
+                    >
+                      Register
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          {
-            (failedLogin)
-              ? (
-                <p data-testid="common_login__element-invalid-email">
-                  {
-                    `O endereço de e-mail ou a senha inválidos.
-                    Por favor, insira os dados novamente.`
-                  }
-                </p>
-              )
-              : null
-          }
-          <div>
-            <button
-              data-testid="common_login__button-login"
-              type="button"
-              disabled={ this.checkLogin() }
-              onClick={ (event) => this.login(event) }
-            >
-              Login
-            </button>
-            <button
-              data-testid="common_login__button-register"
-              type="button"
-              onClick={ () => this.register() }
-            >
-              Register
-            </button>
-          </div>
-        </form>
+        </div>
       </section>
     );
   }
