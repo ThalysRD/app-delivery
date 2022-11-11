@@ -72,9 +72,6 @@ export default class CustomerProducts extends Component {
           />
           <div className="container mt-3 mb-3">
             {
-              console.log(_.chunk(products, separatedCards))
-            }
-            {
               (_.chunk(products, separatedCards)).map((productGroup, index) => (
                 <div
                   className="row justify-content-around  mb-4"
@@ -119,6 +116,13 @@ export default class CustomerProducts extends Component {
             </div>
           </div>
         </div>
+        <footer
+          style={
+            { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")' }
+          }
+        >
+          .
+        </footer>
       </main>
     );
   }

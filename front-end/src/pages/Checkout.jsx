@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckoutDetails from '../components/CheckoutDetails';
 import CheckoutProducts from '../components/CheckoutProducts';
+import NavBar from '../components/NavBar';
 
 export default class Checkout extends Component {
   constructor() {
@@ -32,17 +33,28 @@ export default class Checkout extends Component {
     const { totalPrice, products } = this.state;
     const { history } = this.props;
     return (
-      <section>
-        <CheckoutProducts
-          funcTotalPrice={ this.funcTotalPrice }
-          funcProducts={ this.funcProducts }
-        />
-        <CheckoutDetails
-          totalPrice={ +totalPrice }
-          products={ products }
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")' }
+        }
+      >
+        <NavBar
           history={ history }
         />
-      </section>
+        <div
+          className="container mt-3 mb-3"
+        >
+          <CheckoutProducts
+            funcTotalPrice={ this.funcTotalPrice }
+            funcProducts={ this.funcProducts }
+          />
+          <CheckoutDetails
+            totalPrice={ +totalPrice }
+            products={ products }
+            history={ history }
+          />
+        </div>
+      </main>
     );
   }
 }

@@ -45,16 +45,22 @@ export default class CheckoutProducts extends Component {
     const { products, totalPrice } = this.state;
     return (
       <div>
-        <header>Finalizar Pedido</header>
-        <table>
+        <header
+          className="text-center text-bg-dark p-2"
+        >
+          FINALIZAR PEDIDO
+        </header>
+        <table
+          className="table   table-striped"
+        >
           <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
+            <tr className="table-secondary text-center">
+              <th scope="col">Item</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Valor Unitário</th>
+              <th scope="col">Sub-total</th>
+              <th scope="col">Remover Item</th>
             </tr>
           </thead>
           <tbody>
