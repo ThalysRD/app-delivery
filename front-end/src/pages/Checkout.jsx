@@ -35,7 +35,7 @@ export default class Checkout extends Component {
     return (
       <main
         style={
-          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")' }
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")', height: '100vh' }
         }
       >
         <NavBar

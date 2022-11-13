@@ -32,7 +32,11 @@ export default class CustomerOrders extends Component {
     const { orders } = this.state;
 
     return (
-      <section>
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")', height: '100vh' }
+        }
+      >
         <NavBar history={ history } />
         {
           orders.map((order) => (
@@ -41,7 +45,7 @@ export default class CustomerOrders extends Component {
             </Link>
           ))
         }
-      </section>
+      </main>
     );
   }
 }

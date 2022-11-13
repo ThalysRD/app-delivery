@@ -46,12 +46,12 @@ export default class CheckoutProducts extends Component {
     return (
       <div>
         <header
-          className="text-center text-bg-dark p-2"
+          className="text-center text-bg-dark p-2 bg-gradient"
         >
           FINALIZAR PEDIDO
         </header>
         <table
-          className="table   table-striped"
+          className="table table-striped"
         >
           <thead>
             <tr className="table-secondary text-center">
@@ -77,11 +77,16 @@ export default class CheckoutProducts extends Component {
             ))}
           </tbody>
         </table>
-        <span
+        <button
+          type="button"
           data-testid="customer_checkout__element-order-total-price"
+          className="btn btn-dark bg-gradient"
         >
-          {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
-        </span>
+          { 'Preço Total ' }
+          <span className="badge text-bg-secondary  ">
+            {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
+          </span>
+        </button>
       </div>
     );
   }

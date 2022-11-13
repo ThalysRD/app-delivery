@@ -7,10 +7,14 @@ export default class OrderDetails extends Component {
   render() {
     const { history } = this.props;
     return (
-      <section>
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")', height: '100vh' }
+        }
+      >
         <NavBar history={ history } />
         <OrderProducts />
-      </section>
+      </main>
     );
   }
 }

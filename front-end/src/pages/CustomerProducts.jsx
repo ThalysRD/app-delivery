@@ -116,13 +116,6 @@ export default class CustomerProducts extends Component {
             </div>
           </div>
         </div>
-        <footer
-          style={
-            { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")' }
-          }
-        >
-          .
-        </footer>
       </main>
     );
   }

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -47,13 +48,32 @@ class OrderProducts extends Component {
     const { products, totalPrice, details, sellerName, status } = this.state;
     const testId = 'customer_order_details__element-order-';
     return (
-      <div>
-        <header>Detalhe do Pedido</header>
-        <span
-          data-testid={ `${testId}details-label-order-id` }
-        >
-          {`Pedido ${details.id}`}
-        </span>
+      <div className="container bg-white">
+        <div className="row justify-content-start">
+          <div className="col-auto">
+            <img
+              src="https://i.imgur.com/ENdgmhG.png"
+              alt="check-mark"
+              style={
+                { width: '100px', height: '100px' }
+              }
+            />
+          </div>
+          <div className="col">
+            <div className="container fs-4">
+              <div className="row fw-bold">
+                <div className="col" data-testid={ `${testId}details-label-order-id` }>
+                  {`Pedido #${details.id}`}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  Detalhes do Pedido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <span
           data-testid={ `${testId}details-label-seller-name` }
         >
@@ -77,14 +97,14 @@ class OrderProducts extends Component {
         >
           Marcar como entregue
         </button>
-        <table>
+        <table className="table table-striped">
           <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
+            <tr className="table-secondary text-center">
+              <th scope="col">Item</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Valor Unitário</th>
+              <th scope="col">Sub-total</th>
             </tr>
           </thead>
           <tbody>
@@ -99,11 +119,16 @@ class OrderProducts extends Component {
             ))}
           </tbody>
         </table>
-        <span
+        <button
+          type="button"
           data-testid="customer_order_details__element-order-total-price"
+          className="btn btn-dark bg-gradient"
         >
-          {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
-        </span>
+          { 'Preço Total ' }
+          <span className="badge text-bg-secondary  ">
+            {`${totalPrice.toFixed(2)}`.replace(/\./, ',')}
+          </span>
+        </button>
       </div>
     );
   }

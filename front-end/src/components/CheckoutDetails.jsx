@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { requestSeller, requestCheckout, setToken } from '../services/requests';
@@ -65,53 +66,77 @@ export default class CheckoutDetails extends Component {
   render() {
     const { sellers, number, address } = this.state;
     return (
-      <section>
-        <h1>Detalhes e Endereço para Entrega</h1>
-        <label htmlFor="vendedora">
-          {' '}
-          P. Vendedora Responsável:
-          <select
-            id="vendedora"
-            data-testid="customer_checkout__select-seller"
-            onChange={ this.idSeller }
-          >
-            {sellers.map((seller) => (
-              <option value={ seller.id } key={ seller.id }>
-                {seller.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="endereco">
-          {' '}
-          Endereço
-          <input
-            type="text"
-            id="endereco"
-            data-testid="customer_checkout__input-address"
-            onChange={ this.address }
-            value={ address }
-          />
-        </label>
-        <label htmlFor="numero">
-          {' '}
-          Número
-          <input
-            type="text"
-            id="numero"
-            data-testid="customer_checkout__input-address-number"
-            onChange={ this.number }
-            value={ number }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ this.checkout }
-        >
-          Finalizar Pedido
+      <section className="container bg-primary pb-2 mt-2 text-white">
+        <div className="row text-center text-bg-dark p-2 bg-gradient">
+          <div className="col">
+            DETALHES E ENDEREÇO PARA ENTREGA
+          </div>
+        </div>
+        <div className="row mt-1">
+          <div className="col">
+            <div className="mb-3">
+              <label htmlFor="vendedora">
+                {' '}
+                Pessoa Vendedora Responsável
+              </label>
+              <select
+                id="vendedora"
+                data-testid="customer_checkout__select-seller"
+                onChange={ this.idSeller }
+                className="form-select"
+              >
+                {sellers.map((seller) => (
+                  <option value={ seller.id } key={ seller.id }>
+                    {seller.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-10">
+            <label htmlFor="endereco">
+              {' '}
+              Endereço
+            </label>
+            <input
+              type="text"
+              id="endereco"
+              data-testid="customer_checkout__input-address"
+              onChange={ this.address }
+              value={ address }
+              className="form-control"
+            />
+          </div>
+          <div className="col-2">
+            <label htmlFor="numero">
+              {' '}
+              Número
+            </label>
+            <input
+              type="text"
+              id="numero"
+              data-testid="customer_checkout__input-address-number"
+              onChange={ this.number }
+              value={ number }
+              className="form-control"
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col d-grid gap-2">
+            <button
+              type="button"
+              data-testid="customer_checkout__button-submit-order"
+              onClick={ this.checkout }
+              className="btn btn-dark bg-gradient mt-3"
+            >
+              Finalizar Pedido
 
-        </button>
+            </button>
+          </div>
+        </div>
       </section>
     );
   }
