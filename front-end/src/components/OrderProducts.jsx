@@ -48,7 +48,7 @@ class OrderProducts extends Component {
     const { products, totalPrice, details, sellerName, status } = this.state;
     const testId = 'customer_order_details__element-order-';
     return (
-      <div className="container bg-white">
+      <div className="container text-white mt-3">
         <div className="row justify-content-start">
           <div className="col-auto">
             <img
@@ -74,29 +74,47 @@ class OrderProducts extends Component {
             </div>
           </div>
         </div>
-        <span
+        <div
           data-testid={ `${testId}details-label-seller-name` }
+          className="row justify-content-center fs-5"
         >
-          {`P. Vend: ${sellerName}`}
-        </span>
-        <span
-          data-testid={ `${testId}details-label-order-date` }
-        >
-          { new Date(details.saleDate).toLocaleDateString('pt-br')}
-        </span>
-        <span
-          data-testid={ `${testId}details-label-delivery-status` }
-        >
-          { status }
-        </span>
-        <button
-          type="button"
-          data-testid="customer_order_details__button-delivery-check"
-          onClick={ () => this.deliveredCheck() }
-          disabled={ status !== 'Em Trânsito' }
-        >
-          Marcar como entregue
-        </button>
+          <div className="col-auto">
+            {`Pessoa Vendora: ${sellerName}`}
+          </div>
+        </div>
+        <div className="row justify-content-between align-items-center mb-2">
+          <div className="col-auto">
+            <span
+              data-testid={ `${testId}details-label-order-date` }
+            >
+              <span className="fw-bold">
+                Data:
+              </span>
+              { ` ${new Date(details.saleDate).toLocaleDateString('pt-br')}`}
+            </span>
+          </div>
+          <div className="col-auto">
+            <span
+              data-testid={ `${testId}details-label-delivery-status` }
+            >
+              <span className="fw-bold">
+                Status:
+              </span>
+              { ` ${status}` }
+            </span>
+          </div>
+          <div className="col-auto">
+            <button
+              type="button"
+              data-testid="customer_order_details__button-delivery-check"
+              onClick={ () => this.deliveredCheck() }
+              disabled={ status !== 'Em Trânsito' }
+              className="btn btn-dark bg-gradient"
+            >
+              Marcar como entregue
+            </button>
+          </div>
+        </div>
         <table className="table table-striped">
           <thead>
             <tr className="table-secondary text-center">
