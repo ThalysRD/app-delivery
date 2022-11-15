@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import SellerNavBar from '../components/SellerNavBar';
 import SellerOrderCard from '../components/SellerOrderCard';
 import { requestSellerOrders } from '../services/requests';

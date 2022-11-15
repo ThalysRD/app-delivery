@@ -41,7 +41,6 @@ export default class SellerOrderCard extends Component {
         >
           { `${order.deliveryAddress}, ${order.deliveryNumber}` }
         </td>
-        <br />
       </tr>
     );
   }

@@ -7,12 +7,16 @@ export default class SellerOrderDetails extends Component {
   render() {
     const { history, match } = this.props;
     return (
-      <section>
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")', height: '100vh' }
+        }
+      >
         <SellerNavBar history={ history } />
         <SellerDetails
           match={ match }
         />
-      </section>
+      </main>
     );
   }
 }

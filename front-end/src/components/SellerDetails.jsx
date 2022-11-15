@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SellerDetailsCard from './SellerDetailsCard';
@@ -85,72 +86,119 @@ export default class SellerDetails extends Component {
       orderDetails,
       onTheWay,
       delivered } = this.state;
-    const testId = 'seller_order_details__element-order-details-label-delivery-status';
-    console.log(notPreparing);
-    console.log(onTheWay);
+
     return (
-      <section>
-        Detalhe do Pedido
-        <div>
-          <span
-            data-testid="seller_order_details__element-order-details-label-order-id"
-          >
-            { ` Pedido: ${orderDetails.id} ---- ` }
-          </span>
-          <span
-            data-testid="seller_order_details__element-order-details-label-order-date"
-          >
-            { `${new Date(orderDetails.saleDate).toLocaleDateString('pt-br')} ---- ` }
-          </span>
-          <span
-            data-testid={ testId }
-          >
-            { status }
-          </span>
-          <span>
+      <div className="container text-white mt-3">
+        <div className="row justify-content-start">
+          <div className="col-auto">
+            <img
+              src="https://i.imgur.com/ENdgmhG.png"
+              alt="check-mark"
+              style={
+                { width: '100px', height: '100px' }
+              }
+            />
+          </div>
+          <div className="col">
+            <div className="container fs-4">
+              <div className="row fw-bold">
+                <div
+                  className="col"
+                  data-testid="seller_order_details__element-order-details-label-order-id"
+                >
+                  {`Pedido #${orderDetails.id}`}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  Detalhes do Pedido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row justify-content-between align-items-center mb-2">
+          <div className="col-auto">
+            <span
+              data-testid="seller_order_details__element-order-details-label-order-date"
+            >
+              <span className="fw-bold">
+                Data:
+              </span>
+              { ` ${new Date(orderDetails.saleDate).toLocaleDateString('pt-br')}`}
+            </span>
+          </div>
+          <div className="col-auto">
+            <span
+              data-testid={ `seller_order_details__element
+              -order-details-label-delivery-status` }
+            >
+              <span className="fw-bold">
+                Status:
+              </span>
+              { ` ${status}` }
+            </span>
+          </div>
+          <div className="col-auto">
             <button
               data-testid="seller_order_details__button-preparing-check"
               type="button"
               onClick={ this.preparing }
               disabled={ !notPreparing }
+              className="btn btn-dark bg-gradient"
             >
               Preparar Pedido
             </button>
-          </span>
-          <span>
             <button
               data-testid="seller_order_details__button-dispatch-check"
               type="button"
               disabled={ notPreparing || onTheWay || delivered }
               onClick={ this.onTheWay }
+              className="btn btn-dark bg-gradient"
             >
               Saiu pra Entrega
             </button>
+          </div>
+        </div>
+        <table className="table table-striped">
+          <thead>
+            <tr className="table-secondary text-center">
+              <th scope="col">Item</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Valor Unitário</th>
+              <th scope="col">Sub-total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              orderProducts.map(
+                (orderProduct, index) => (
+                  <SellerDetailsCard
+                    key={ index }
+                    position={ index }
+                    orderProduct={ orderProduct }
+                  />
+                ),
+              )
+            }
+          </tbody>
+        </table>
+        <button
+          type="button"
+          data-testid="seller_order_details__element-order-total-price"
+          className="btn btn-dark bg-gradient"
+        >
+          { 'Preço Total ' }
+          <span className="badge text-bg-secondary  ">
+            {
+              ((orderProducts.reduce((acc, orderProduct) => (
+                acc + (orderProduct.quantity * +orderProduct.Product.price)
+              ), 0)).toFixed(2)).replace(/\./, ',')
+            }
           </span>
-        </div>
-        <br />
-        {
-          orderProducts.map(
-            (orderProduct, index) => (
-              <SellerDetailsCard
-                key={ index }
-                position={ index }
-                orderProduct={ orderProduct }
-              />
-            ),
-          )
-        }
-        <br />
-        <br />
-        <div data-testid="seller_order_details__element-order-total-price">
-          Total:
-          {
-            ((orderProducts.reduce((acc, orderProduct) => (
-              acc + (orderProduct.quantity * +orderProduct.Product.price)
-            ), 0)).toFixed(2)).replace(/\./, ',')
-          }
-        </div>
-      </section>
+        </button>
+      </div>
     );
   }
 }

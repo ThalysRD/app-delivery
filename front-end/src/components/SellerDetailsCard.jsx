@@ -7,44 +7,39 @@ export default class SellerDetailsCard extends Component {
     const { Product, quantity } = orderProduct;
 
     return (
-      <div>
-        <div>
-          <div
-            data-testid={ `seller_order_details__element-order-table-item-number-
-            ${position}` }
-          >
-            id:
-            { position + 1 }
-          </div>
-          <div
-            data-testid={ `seller_order_details__element-order-table-name-
-            ${position}` }
-          >
-            { Product.name }
-          </div>
-        </div>
-        <div>
-          <div
-            data-testid={ `seller_order_details__element-order-table-quantity-
-            ${position}` }
-          >
-            { quantity }
-          </div>
-          <div
-            data-testid={ `seller_order_details__element-order-table-unit-price-
-            ${position}` }
-          >
-            { (Product.price).replace(/\./, ',') }
-          </div>
-          <div
-            data-testid={ `seller_order_details__element-order-table-sub-total-
-            ${position}` }
-          >
-            { ((+Product.price * quantity).toFixed(2)).replace(/\./, ',') }
-          </div>
-        </div>
-        <br />
-      </div>
+      <tr className="table-primary text-center">
+        <th
+          data-testid={ `seller_order_details__element-order-table-item-number-
+          ${position}` }
+          scope="row"
+        >
+          { position + 1 }
+        </th>
+        <td
+          data-testid={ `seller_order_details__element-order-table-name-
+          ${position}` }
+        >
+          { Product.name }
+        </td>
+        <td
+          data-testid={ `seller_order_details__element-order-table-quantity-
+          ${position}` }
+        >
+          { quantity }
+        </td>
+        <td
+          data-testid={ `seller_order_details__element-order-table-unit-price-
+          ${position}` }
+        >
+          { (Product.price).replace(/\./, ',') }
+        </td>
+        <td
+          data-testid={ `seller_order_details__element-order-table-sub-total-
+          ${position}` }
+        >
+          { ((+Product.price * quantity).toFixed(2)).replace(/\./, ',') }
+        </td>
+      </tr>
     );
   }
 }
