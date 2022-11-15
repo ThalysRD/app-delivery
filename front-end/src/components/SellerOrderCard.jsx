@@ -2,38 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class SellerOrderCard extends Component {
+  onClick = () => {
+    const { history, order } = this.props;
+
+    history.push(`/seller/orders/${order.id}`);
+  };
+
   render() {
     const { order } = this.props;
 
     return (
-      <div>
-        <div
+      <tr
+        className="table-primary text-center hoverable"
+        onClick={ this.onClick }
+      >
+        <th
           data-testid={ `seller_orders__element-order-id-${order.id}` }
         >
           { order.id }
-        </div>
-        <div
+        </th>
+        <td
           data-testid={ `seller_orders__element-delivery-status-${order.id}` }
         >
           { order.status }
-        </div>
-        <div
+        </td>
+        <td
           data-testid={ `seller_orders__element-order-date-${order.id}` }
         >
           { new Date(order.saleDate).toLocaleDateString('pt-br')}
-        </div>
-        <div
+        </td>
+        <td
           data-testid={ `seller_orders__element-card-price-${order.id}` }
         >
           { order.totalPrice }
-        </div>
-        <div
+        </td>
+        <td
           data-testid={ `seller_orders__element-card-address-${order.id}` }
         >
           { `${order.deliveryAddress}, ${order.deliveryNumber}` }
-        </div>
+        </td>
         <br />
-      </div>
+      </tr>
     );
   }
 }
@@ -48,5 +57,9 @@ SellerOrderCard.propTypes = {
     status: PropTypes.string.isRequired,
     totalPrice: PropTypes.string.isRequired,
     userId: PropTypes.number.isRequired,
+  }).isRequired,
+
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };

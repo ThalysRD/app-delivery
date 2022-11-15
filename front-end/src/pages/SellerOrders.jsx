@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -30,18 +31,43 @@ export default class SellerOrders extends Component {
     const { sellerOrders } = this.state;
 
     return (
-      <div>
-        <SellerNavBar history={ history } />
-        {
-          sellerOrders.map(
-            (order) => (
-              <Link to={ `/seller/orders/${order.id}` } key={ order.id }>
-                <SellerOrderCard key={ order.id } order={ order } />
-              </Link>
-            ),
-          )
+      <main
+        style={
+          { backgroundImage: 'url("https://i.imgur.com/FuLTjVH.jpg")', height: '100vh' }
         }
-      </div>
+      >
+        <SellerNavBar history={ history } />
+        <div
+          className="container mt-3 mb-3"
+        >
+          <table
+            className="table table-striped"
+          >
+            <thead>
+              <tr className="table-secondary text-center">
+                <th scope="col">Item</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data de Compra</th>
+                <th scope="col">Valor Total</th>
+                <th scope="col">Endereço</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                sellerOrders.map(
+                  (order) => (
+                    <SellerOrderCard
+                      history={ history }
+                      key={ order.id }
+                      order={ order }
+                    />
+                  ),
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+      </main>
     );
   }
 }
