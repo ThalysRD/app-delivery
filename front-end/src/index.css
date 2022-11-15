@@ -1,3 +1,8 @@
+tr.hoverable:hover {
+  border: 2px solid aliceblue;
+  cursor: pointer;
+}
+
 #root {
   height: 100vh;
   padding: 0;

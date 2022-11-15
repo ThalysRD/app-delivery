@@ -1,6 +1,6 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import OrderCard from '../components/OrderCard';
 import { requestOrders } from '../services/requests';
@@ -38,13 +38,29 @@ export default class CustomerOrders extends Component {
         }
       >
         <NavBar history={ history } />
-        {
-          orders.map((order) => (
-            <Link to={ `/customer/orders/${order.id}` } key={ order.id }>
-              <OrderCard key={ order.id } order={ order } />
-            </Link>
-          ))
-        }
+        <div
+          className="container mt-3 mb-3"
+        >
+          <table
+            className="table table-striped"
+          >
+            <thead>
+              <tr className="table-secondary text-center">
+                <th scope="col">Item</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data de Compra</th>
+                <th scope="col">Valor Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                orders.map((order) => (
+                  <OrderCard history={ history } key={ order.id } order={ order } />
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
       </main>
     );
   }
