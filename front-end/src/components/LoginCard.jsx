@@ -101,7 +101,7 @@ export default class LoginCard extends Component {
         <div className="row">
           <div className="col">
             <form className="container">
-              <div className="row justify-content-center m-2 text-center">
+              <div className="row justify-content-center m-2 text-center text-white fs-3">
                 <div className="col">
                   Login
                 </div>
