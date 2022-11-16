@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import { requestRegister } from '../services/requests';
 
@@ -18,11 +19,6 @@ export default class AdminForm extends Component {
     try {
       const { name, email, password, role } = this.state;
       await requestRegister({ email, password, name, role });
-      // if (register) {
-      //   // this.setState({
-      //   //   // isRegistered: true,
-      //   // });
-      // }
     } catch (error) {
       console.log(error);
       this.setState({
@@ -69,79 +65,124 @@ export default class AdminForm extends Component {
   render() {
     const { name, email, password, role, registrationFailure } = this.state;
     return (
-      <section>
-        <form>
-          <label htmlFor="input-name">
-            Nome
-            <input
-              id="input-name"
-              type="text"
-              data-testid="admin_manage__input-name"
-              value={ name }
-              onChange={ this.usernameChange }
-            />
-          </label>
-          <label htmlFor="input-email">
-            Email
-            <input
-              id="input-email"
-              type="email"
-              data-testid="admin_manage__input-email"
-              value={ email }
-              onChange={ this.emailChange }
-            />
-          </label>
-          <label htmlFor="input-password">
-            Senha
-            <input
-              id="input-password"
-              type="password"
-              data-testid="admin_manage__input-password"
-              value={ password }
-              onChange={ this.passwordChange }
-            />
-          </label>
-          <label htmlFor="input-role">
-            Tipo
-            <select
-              id="input-role"
-              data-testid="admin_manage__select-role"
-              value={ role }
-              onChange={ this.roleChange }
-            >
-              <option value="customer">
-                Cliente
-              </option>
-              <option value="seller">
-                Vendedor
-              </option>
-              <option value="administrator">
-                Administrador
-              </option>
-            </select>
-          </label>
-        </form>
-        {
-          (registrationFailure)
-            ? (
-              <p data-testid="admin_manage__element-invalid-register">
-                {
-                  `O endereço de e-mail já está cadastrado.
-                    Por favor, insira um email diferente.`
-                }
-              </p>
-            )
-            : null
+      <div
+        className="container p-3"
+        style={
+          { backgroundColor: 'rgba(0,0,0,0.5)' }
         }
-        <button
-          type="button"
-          data-testid="admin_manage__button-register"
-          disabled={ this.checkValidateRegister() }
-          onClick={ (event) => this.register(event) }
-        >
-          Cadastrar
-        </button>
-      </section>
+      >
+        <div className="row">
+          <div className="col">
+            <form className="container">
+              <div
+                className={ `row justify-content-centerm-2
+                text-center text-white fs-3` }
+              >
+                <div className="col">
+                  Register User
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  <label htmlFor="input-name">
+                    <input
+                      id="input-name"
+                      type="text"
+                      data-testid="admin_manage__input-name"
+                      value={ name }
+                      onChange={ this.usernameChange }
+                      placeholder="Nome"
+                      className="form-control"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  <label htmlFor="input-email">
+                    <input
+                      id="input-email"
+                      type="email"
+                      data-testid="admin_manage__input-email"
+                      value={ email }
+                      onChange={ this.emailChange }
+                      placeholder="Email"
+                      className="form-control"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  <label htmlFor="input-password">
+                    <input
+                      id="input-password"
+                      type="password"
+                      data-testid="admin_manage__input-password"
+                      value={ password }
+                      onChange={ this.passwordChange }
+                      placeholder="Senha"
+                      className="form-control"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col d-grid">
+                  <label htmlFor="input-role">
+                    <select
+                      id="input-role"
+                      data-testid="admin_manage__select-role"
+                      value={ role }
+                      onChange={ this.roleChange }
+                      className="form-select"
+                    >
+                      <option value="customer">
+                        Cliente
+                      </option>
+                      <option value="seller">
+                        Vendedor
+                      </option>
+                      <option value="administrator">
+                        Administrador
+                      </option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col">
+                  {
+                    (registrationFailure)
+                      ? (
+                        <p data-testid="admin_manage__element-invalid-register">
+                          {
+                            `O endereço de e-mail já está cadastrado.
+                              Por favor, insira um email diferente.`
+                          }
+                        </p>
+                      )
+                      : null
+                  }
+                </div>
+              </div>
+              <div className="row m-2">
+                <div className="col d-grid">
+                  <button
+                    type="button"
+                    data-testid="admin_manage__button-register"
+                    disabled={ this.checkValidateRegister() }
+                    onClick={ (event) => this.register(event) }
+                    className="btn btn-primary"
+                  >
+                    Cadastrar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }
